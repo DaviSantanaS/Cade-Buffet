@@ -1,5 +1,5 @@
 class Buffet < ApplicationRecord
-  has_and_belongs_to_many :party_types
+  belongs_to :user
   has_many :event_types, dependent: :destroy
 
   validates_presence_of :name, :company_name, :cnpj, :phone, :contact_email,

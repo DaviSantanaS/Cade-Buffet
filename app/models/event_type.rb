@@ -1,5 +1,6 @@
 class EventType < ApplicationRecord
   belongs_to :buffet
+  has_many :event_prices, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true

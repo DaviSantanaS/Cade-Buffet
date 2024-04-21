@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_21_154216) do
-  create_table "buffet_party_types", id: false, force: :cascade do |t|
-    t.integer "buffet_id"
-    t.integer "party_type_id"
-    t.index ["buffet_id"], name: "index_buffet_party_types_on_buffet_id"
-    t.index ["party_type_id"], name: "index_buffet_party_types_on_party_type_id"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_205623) do
   create_table "buffets", force: :cascade do |t|
     t.string "name", null: false
     t.string "company_name", null: false
@@ -37,6 +30,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_154216) do
     t.index ["user_id"], name: "index_buffets_on_user_id"
   end
 
+  create_table "event_prices", force: :cascade do |t|
+    t.integer "event_type_id", null: false
+    t.integer "buffet_id", null: false
+    t.decimal "base_price"
+    t.decimal "additional_price_per_person"
+    t.decimal "extra_hour_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buffet_id"], name: "index_event_prices_on_buffet_id"
+    t.index ["event_type_id"], name: "index_event_prices_on_event_type_id"
+  end
+
   create_table "event_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -54,13 +59,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_154216) do
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
-  create_table "party_types", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,8 +73,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_154216) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "buffet_party_types", "buffets"
-  add_foreign_key "buffet_party_types", "party_types"
   add_foreign_key "buffets", "users"
+  add_foreign_key "event_prices", "buffets"
+  add_foreign_key "event_prices", "event_types"
   add_foreign_key "event_types", "buffets"
 end
