@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def check_buffet_completion
     if user_signed_in? && current_user.buffet_owner? && current_user.buffet.nil? && !devise_controller?
       unless request.path.in?([new_buffet_path, buffets_path])
-        flash[:notice] = 'Você precisa completar o cadastro do seu buffet'
+        flash[:notice] = 'You need to complete your buffet registration before continue.'
         redirect_to new_buffet_path
       end
     end

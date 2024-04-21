@@ -10,28 +10,36 @@ class BuffetsController < ApplicationController
 
   def new
       @buffet = Buffet.new
-      @user = current_user
   end
 
   def create
-    @buffet = Buffet.create!(buffet_params)
-    if @buffet.save
-      redirect_to @buffet, notice: "Buffet created successfully"
+  @buffet = Buffet.create!(buffet_params.merge(user_id: current_user.id))
+    if current_user.buffet_owner?
+      if @buffet.save
+        redirect_to @buffet, notice: "Buffet created successfully"
+      else
+        flash[:now] = "Error creating buffet."
+        render :new
+      end
     else
-      flash[:now] = "Error creating buffet."
-      render :new
+      redirect_to root_path, alert: "Only buffet owners can perform this action"
     end
   end
 
-
-  def edit; end
+  def edit
+    redirect_to root_path, alert: "Only buffet owners can perform this action" unless current_user.actual_buffet_owner?(@buffet)
+  end
 
   def update
-    if @buffet.update(buffet_params)
-      redirect_to @buffet, notice: "Buffet updated successfully"
+    if current_user.actual_buffet_owner?(@buffet)
+      if @buffet.update(buffet_params)
+        redirect_to @buffet, notice: "Buffet updated successfully"
+      else
+        flash[:now] = "Error updating buffet."
+        render :edit
+      end
     else
-      flash[:now] = "Error updating buffet."
-      render :edit
+      redirect_to root_path, alert: "Only buffet owners can perform this action"
     end
   end
 
@@ -46,7 +54,7 @@ class BuffetsController < ApplicationController
     params.require(:buffet).permit(:name, :company_name,
                                    :cnpj, :phone, :contact_email,
                                    :address, :district, :state, :city,
-                                   :zip_code, :description, :payment_methods, :user_id)
+                                   :zip_code, :description, :payment_methods)
 
 
   end

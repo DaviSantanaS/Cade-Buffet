@@ -1,19 +1,54 @@
+
 <h1>Buffet Details</h1>
 
-<p>Business Name: <%= @buffet.name %></p>
-<p>Company Name: <%= @buffet.company_name %></p>
-<p>CNPJ: <%= @buffet.cnpj %></p>
-<p>Phone: <%= @buffet.phone %></p>
-<p>Contact Email: <%= @buffet.contact_email %></p>
-<p>Address: <%= @buffet.address %>, <%= @buffet.district %>, <%= @buffet.city %>, <%= @buffet.state %>, <%= @buffet.zip_code %></p>
+<% if user_signed_in? %>
+  <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
+    <%= link_to "Edit Buffet", edit_buffet_path(@buffet), class: "edit-button" %>
+    <br>
+    <%= link_to "New event type", new_buffet_event_type_path(@buffet) %>
+  <% end %>
 
-<% if @buffet.description.present? %>
-  <p>Description: <%= @buffet.description %></p>
+
+  <div class="buffet-details">
+    <strong>Business Name:</strong> <%= @buffet.name %><br>
+    <strong>Company Name:</strong> <%= @buffet.company_name %><br>
+    <strong>CNPJ:</strong> <%= @buffet.cnpj %><br>
+    <strong>Phone:</strong> <%= @buffet.phone %><br>
+    <strong>Contact Email:</strong> <%= @buffet.contact_email %><br>
+    <strong>Address:</strong> <%= [@buffet.address, @buffet.district, @buffet.city, @buffet.state, @buffet.zip_code].compact.join(', ') %><br>
+
+    <% if @buffet.description.present? %>
+      <strong>Description:</strong> <%= @buffet.description %><br>
+    <% end %>
+
+    <% if @buffet.payment_methods.present? %>
+      <strong>Payment Methods:</strong> <%= @buffet.payment_methods %><br>
+    <% end %>
+  </div>
 <% end %>
 
-<% if @buffet.payment_methods.present? %>
-  <p>Payment Methods: <%= @buffet.payment_methods %></p>
+<% if @buffet.event_types.any? %>
+  <h2>Event Types Offered</h2>
+  <ul>
+    <% @buffet.event_types.each do |event_type| %>
+      <li>
+        <strong>Name:</strong> <%= event_type.name %><br>
+        <strong>Description:</strong> <%= event_type.description %><br>
+        <strong>Min Capacity:</strong> <%= event_type.min_capacity %><br>
+        <strong>Max Capacity:</strong> <%= event_type.max_capacity %><br>
+        <strong>Duration (minutes):</strong> <%= event_type.duration_minutes %><br>
+        <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
+        <strong>Has Alcoholic Beverages:</strong> <%= event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
+        <strong>Has Decorations:</strong> <%= event_type.has_decorations? ? 'Yes' : 'No' %><br>
+        <strong>Has Parking Service:</strong> <%= event_type.has_parking_service? ? 'Yes' : 'No' %><br>
+        <strong>Venue Options:</strong> <%= event_type.venue_options %><br>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No event types offered yet.</p>
 <% end %>
+
+<br>
 
 <%= link_to "Back", :back %>
-

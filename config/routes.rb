@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :buffets, only: [:index, :show, :new, :create, :edit, :update]
-  resources :home, only: [:index]
+  resources :buffets, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :event_types, except: [:show]
+  end
 
+  resources :home, only: [:index]
 end

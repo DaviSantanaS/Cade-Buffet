@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_20_232344) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_154216) do
   create_table "buffet_party_types", id: false, force: :cascade do |t|
     t.integer "buffet_id"
     t.integer "party_type_id"
@@ -37,6 +37,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_20_232344) do
     t.index ["user_id"], name: "index_buffets_on_user_id"
   end
 
+  create_table "event_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "min_capacity"
+    t.integer "max_capacity"
+    t.integer "duration_minutes"
+    t.text "menu_text"
+    t.boolean "has_alcoholic_beverages", default: false
+    t.boolean "has_decorations", default: false
+    t.boolean "has_parking_service", default: false
+    t.string "venue_options"
+    t.integer "buffet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
+  end
+
   create_table "party_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -61,4 +78,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_20_232344) do
   add_foreign_key "buffet_party_types", "buffets"
   add_foreign_key "buffet_party_types", "party_types"
   add_foreign_key "buffets", "users"
+  add_foreign_key "event_types", "buffets"
 end

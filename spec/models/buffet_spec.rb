@@ -3,7 +3,14 @@ require 'rails_helper'
 RSpec.describe Buffet, type: :model do
   describe 'validations' do
     it 'is valid with valid attributes' do
-      # Cria um Buffet com atributos válidos
+      @buffet_owner = User.create!(
+        email: 'buffet_owner@example.com',
+        password: 'password',
+        name: 'Buffet Owner',
+        buffet_owner: true
+      )
+
+
       buffet = Buffet.new(
         name: 'Test Buffet',
         company_name: 'Test Company',
@@ -14,7 +21,8 @@ RSpec.describe Buffet, type: :model do
         district: 'Test District',
         state: 'TS',
         city: 'Test City',
-        zip_code: '12345678'
+        zip_code: '12345678',
+        user_id: @buffet_owner.id
       )
       expect(buffet).to be_valid
     end

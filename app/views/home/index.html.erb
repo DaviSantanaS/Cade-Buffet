@@ -1,15 +1,48 @@
-<h1>Seja bem-vindo ao CadeBuffet!</h1>
+<h1>Welcome to CadeBuffet!</h1>
 
-<% if user_signed_in? && current_user.buffet_owner? && current_user.buffet.present? %>
-  <h2><%= current_user.buffet.name %></h2>
-  <p><strong>Description:</strong> <%= current_user.buffet.description %></p>
+<% if user_signed_in? %>
+  <% if current_user.buffet_owner? && current_user.buffet.present? %>
+    <h2><%= link_to(current_user.buffet.name, buffet_path(current_user.buffet)) %></h2>
+    <% if current_user.buffet.description.present? %>
+      <p><strong>Description:</strong> <%= current_user.buffet.description %></p>
+    <% end %>
 
-  <%= link_to "Edit Buffet", edit_buffet_path(current_user.buffet), class: "edit-button" %>
-<% else %>
-
- <% @buffets.each do |buffet| %>
-    <h2><%= link_to(buffet.name, buffet_path(buffet.id)) %></h2>
-    <p><strong>Description:</strong> <%= buffet.description %></p>
+    <% if @buffets.any? %>
+      <p><strong>Other Buffets:</strong></p>
+      <% @buffets.each do |buffet| %>
+        <% unless buffet == current_user.buffet %>
+          <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
+          <% if buffet.description.present? %>
+            <p><strong>Description:</strong> <%= buffet.description %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No other buffets available.</p>
+    <% end %>
+  <% else %>
+    <% if @buffets.any? %>
+      <p><strong>Available Buffets:</strong></p>
+      <% @buffets.each do |buffet| %>
+        <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
+        <% if buffet.description.present? %>
+          <p><strong>Description:</strong> <%= buffet.description %></p>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No buffets available.</p>
+    <% end %>
   <% end %>
-
+<% else %>
+  <% if @buffets.any? %>
+    <p><strong>Available Buffets:</strong></p>
+    <% @buffets.each do |buffet| %>
+      <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
+      <% if buffet.description.present? %>
+        <p><strong>Description:</strong> <%= buffet.description %></p>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>No buffets available.</p>
+  <% end %>
 <% end %>

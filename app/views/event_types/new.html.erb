@@ -1,0 +1,67 @@
+<%= form_with(model: @event_type, url: buffet_event_types_path(@buffet)) do |form| %>
+  <% if @event_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_type.errors.count, "error") %> prohibited this event type from being saved:</h2>
+      <ul>
+        <% @event_type.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :event_type_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :event_type_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :min_capacity %>
+    <%= form.number_field :min_capacity, id: :event_type_min_capacity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :max_capacity %>
+    <%= form.number_field :max_capacity, id: :event_type_max_capacity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duration_minutes %>
+    <%= form.number_field :duration_minutes, id: :event_type_duration_minutes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :menu_text %>
+    <%= form.text_area :menu_text, id: :event_type_menu_text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_alcoholic_beverages %>
+    <%= form.check_box :has_alcoholic_beverages, id: :event_type_has_alcoholic_beverages %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_decorations %>
+    <%= form.check_box :has_decorations, id: :event_type_has_decorations %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_parking_service %>
+    <%= form.check_box :has_parking_service, id: :event_type_has_parking_service %>
+  </div>
+
+  <div class="field">
+    <%= form.label :venue_options %>
+    <%= form.select :venue_options, options_for_select(["Exclusive at Buffet Address", "Client's Address"],
+                                                       selected: @event_type.venue_options), id: :event_type_venue_options %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
