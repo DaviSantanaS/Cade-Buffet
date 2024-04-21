@@ -1,0 +1,19 @@
+<h1>Buffet Details</h1>
+
+<p>Business Name: <%= @buffet.name %></p>
+<p>Company Name: <%= @buffet.company_name %></p>
+<p>CNPJ: <%= @buffet.cnpj %></p>
+<p>Phone: <%= @buffet.phone %></p>
+<p>Contact Email: <%= @buffet.contact_email %></p>
+<p>Address: <%= @buffet.address %>, <%= @buffet.district %>, <%= @buffet.city %>, <%= @buffet.state %>, <%= @buffet.zip_code %></p>
+
+<% if @buffet.description.present? %>
+  <p>Description: <%= @buffet.description %></p>
+<% end %>
+
+<% if @buffet.payment_methods.present? %>
+  <p>Payment Methods: <%= @buffet.payment_methods %></p>
+<% end %>
+
+<%= link_to "Back", :back %>
+

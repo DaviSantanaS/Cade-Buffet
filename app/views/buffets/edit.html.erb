@@ -1,0 +1,5 @@
+<h1>Edit <%= current_user.buffet.name %></h1>
+
+<%= render 'form', buffet: @buffet %>
+
+<%= link_to 'Back', buffets_path(@buffet) %>
