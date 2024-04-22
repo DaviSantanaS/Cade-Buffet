@@ -1,2 +1,24 @@
-<h1>EventPrices#index</h1>
-<p>Find me in app/views/event_prices/index.html.erb</p>
+<h1>Event Prices</h1>
+
+<%= link_to "New Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary" if current_user.buffet_owner? && current_user.actual_buffet_owner?(@event_type.buffet) %>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Base Price</th>
+    <th>Additional Price per Person</th>
+    <th>Extra Hour Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @event_prices.each do |event_price| %>
+    <tr>
+      <td><%= number_to_currency(event_price.base_price) %></td>
+      <td><%= number_to_currency(event_price.additional_price_per_person) %></td>
+      <td><%= number_to_currency(event_price.extra_hour_price) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Back to Event Type", event_type_path(@event_type), class: "btn btn-secondary" %>

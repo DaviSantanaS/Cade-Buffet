@@ -1,0 +1,47 @@
+<h1>Event Type Details</h1>
+
+<div class="event-type-details">
+  <strong>Name:</strong> <%= @event_type.name %><br>
+  <strong>Description:</strong> <%= @event_type.description %><br>
+  <strong>Min Capacity:</strong> <%= @event_type.min_capacity %><br>
+  <strong>Max Capacity:</strong> <%= @event_type.max_capacity %><br>
+  <strong>Duration (minutes):</strong> <%= @event_type.duration_minutes %><br>
+  <strong>Menu Text:</strong> <%= @event_type.menu_text %><br>
+  <strong>Has Alcoholic Beverages:</strong> <%= @event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
+  <strong>Has Decorations:</strong> <%= @event_type.has_decorations? ? 'Yes' : 'No' %><br>
+  <strong>Has Parking Service:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
+  <strong>Venue Options:</strong> <%= @event_type.venue_options %><br>
+
+  <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@event_type.buffet) %>
+    <%= link_to "Add Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary" %>
+  <% end %>
+
+  <% if @event_type.event_prices.any? %>
+    <h2>Event Prices</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Base Price</th>
+        <th>Additional Price per Person</th>
+        <th>Extra Hour Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @event_type.event_prices.each do |event_price| %>
+        <tr>
+          <td><%= number_to_currency(event_price.base_price) %></td>
+          <td><%= number_to_currency(event_price.additional_price_per_person) %></td>
+          <td><%= number_to_currency(event_price.extra_hour_price) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No event prices available for this event type.</p>
+  <% end %>
+
+</div>
+
+<br>
+
+<%= link_to "Back to Buffet", buffet_path(@event_type.buffet) %>

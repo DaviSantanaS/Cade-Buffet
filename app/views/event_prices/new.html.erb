@@ -1,2 +1,38 @@
-<h1>EventPrices#new</h1>
-<p>Find me in app/views/event_prices/new.html.erb</p>
+<h1>New Event Price</h1>
+
+<%= form_with(model: @event_price, url: event_type_event_prices_path(@event_type)) do |form| %>
+  <% if @event_price.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_price.errors.count, "error") %> prohibited this event price from being saved:</h2>
+      <ul>
+        <% @event_price.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :base_price %>
+    <%= form.text_field :base_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :additional_price_per_person %>
+    <%= form.text_field :additional_price_per_person %>
+  </div>
+
+  <div class="field">
+    <%= form.label :extra_hour_price %>
+    <%= form.text_field :extra_hour_price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Price" %>
+    <%= link_to "Back", :back, class: "btn btn-secondary" %>
+  </div>
+
+<% end %>
+
+
+

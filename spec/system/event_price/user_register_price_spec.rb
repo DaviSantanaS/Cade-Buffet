@@ -46,18 +46,39 @@ describe 'User register price' do
 
   it 'sucessfully' do
 
+    visit root_path
     click_on 'Buffet Name'
-    click_on 'Event_type_name'
-    click_on 'Register Price'
+    click_on 'Event Type Name'
+    click_on 'Add Event Price'
 
     fill_in 'Base price', with: '1000'
     fill_in 'Additional price per person', with: 50
     fill_in 'Extra hour price', with: 300
     click_on 'Create Price'
 
-    expect(page).to have_content('Event Type Name')
-    expect(page).to have_content('Base price: $ 1.000,00')
+    expect(page).to have_content('Event price was successfully created.')
+    expect(page).to have_content('Event Prices')
+    expect(page).to have_content('Base Price')
+    expect(page).to have_content('$1,000.00')
 
+  end
+
+  it 'and see a registered price' do
+
+    visit root_path
+    click_on 'Buffet Name'
+    click_on 'Event Type Name'
+    click_on 'Add Event Price'
+    fill_in 'Base price', with: '1000'
+    fill_in 'Additional price per person', with: 50
+    fill_in 'Extra hour price', with: 300
+    click_on 'Create Price'
+    visit root_path
+    click_on 'Buffet Name'
+
+
+    expect(page).to have_content('Event Type Name')
+    expect(page).to have_content('Lowest Base Price: $1,000.00')
 
   end
 

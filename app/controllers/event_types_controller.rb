@@ -1,6 +1,15 @@
 class EventTypesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @buffet = Buffet.find(params[:buffet_id])
+    @event_types = @buffet.event_types
+  end
+
+  def show
+    @event_type = EventType.find(params[:id])
+  end
+
   def new
     @buffet = Buffet.find(params[:buffet_id])
     @event_type = @buffet.event_types.build

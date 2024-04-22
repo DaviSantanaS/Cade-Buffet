@@ -1,5 +1,5 @@
 class EventPricesController < ApplicationController
-  before_action :set_event_type, only: [:index, :new, :create, :show]
+  before_action :set_event_type
 
   def index
     @event_prices = @event_type.event_prices
@@ -11,6 +11,7 @@ class EventPricesController < ApplicationController
 
   def create
     @event_price = @event_type.event_prices.build(event_price_params)
+    @event_price.buffet_id = @event_type.buffet_id
 
     if @event_price.save
       redirect_to event_type_event_prices_path(@event_type), notice: 'Event price was successfully created.'

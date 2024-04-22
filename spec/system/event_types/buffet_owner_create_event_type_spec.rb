@@ -53,4 +53,5 @@ describe 'buffet owner create event type' do
     expect(page).not_to have_content('No event types offered yet.')
   end
 
+
 end

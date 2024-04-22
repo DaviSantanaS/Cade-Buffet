@@ -1,4 +1,3 @@
-
 <h1>Buffet Details</h1>
 
 <% if user_signed_in? %>
@@ -7,7 +6,6 @@
     <br>
     <%= link_to "New event type", new_buffet_event_type_path(@buffet) %>
   <% end %>
-
 
   <div class="buffet-details">
     <strong>Business Name:</strong> <%= @buffet.name %><br>
@@ -24,6 +22,19 @@
     <% if @buffet.payment_methods.present? %>
       <strong>Payment Methods:</strong> <%= @buffet.payment_methods %><br>
     <% end %>
+
+    <% lowest_price = nil %>
+    <% @buffet.event_types.each do |event_type| %>
+      <% event_type.event_prices.each do |event_price| %>
+        <% if lowest_price.nil? || event_price.base_price < lowest_price %>
+          <% lowest_price = event_price.base_price %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if lowest_price %>
+      <strong>Lowest Base Price:</strong> <%= number_to_currency(lowest_price) %><br>
+    <% end %>
   </div>
 <% end %>
 
@@ -32,16 +43,8 @@
   <ul>
     <% @buffet.event_types.each do |event_type| %>
       <li>
-        <strong>Name:</strong> <%= event_type.name %><br>
+        <strong>Name:</strong> <%= link_to(event_type.name, buffet_event_type_path(@buffet, event_type)) %><br>
         <strong>Description:</strong> <%= event_type.description %><br>
-        <strong>Min Capacity:</strong> <%= event_type.min_capacity %><br>
-        <strong>Max Capacity:</strong> <%= event_type.max_capacity %><br>
-        <strong>Duration (minutes):</strong> <%= event_type.duration_minutes %><br>
-        <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
-        <strong>Has Alcoholic Beverages:</strong> <%= event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
-        <strong>Has Decorations:</strong> <%= event_type.has_decorations? ? 'Yes' : 'No' %><br>
-        <strong>Has Parking Service:</strong> <%= event_type.has_parking_service? ? 'Yes' : 'No' %><br>
-        <strong>Venue Options:</strong> <%= event_type.venue_options %><br>
       </li>
     <% end %>
   </ul>
