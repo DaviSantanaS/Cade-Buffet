@@ -13,6 +13,7 @@ describe 'User sign up as buffets owner' do
     expect(page).to have_content('Password')
     expect(page).to have_content('Password confirmation')
     expect(page).to have_content('Name')
+    expect(page).not_to have_content('CPF')
   end
 
   it 'signs up successfully as buffets owner' do

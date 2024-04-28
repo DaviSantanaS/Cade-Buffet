@@ -46,7 +46,9 @@ describe 'buffet owner edit buffet' do
     click_on 'Back'
 
 
-    expect(page).to have_content('Buffet Details')
+
+    expect(current_path).to eq(root_path)
     expect(page).to have_content('Buffet Name')
+    expect(page).to_not have_content('Buffet Name Edited')
   end
 end

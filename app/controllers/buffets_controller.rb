@@ -52,7 +52,7 @@ class BuffetsController < ApplicationController
   end
 
   def verify_buffet_owner
-    redirect_to root_path, alert: "Only buffet owners can perform this action" unless current_user.actual_buffet_owner?(@buffet)
+    redirect_to root_path, alert: "Only the buffet owner can perform this action" unless current_user.actual_buffet_owner?(@buffet)
   end
 
   def buffet_params
