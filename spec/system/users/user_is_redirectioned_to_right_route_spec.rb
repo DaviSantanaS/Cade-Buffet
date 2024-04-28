@@ -11,7 +11,7 @@ describe 'User is redirectioned ' do
       fill_in 'Email', with: 'buffet_owner@example.com'
       fill_in 'Password', with: 'strongpassword'
       fill_in 'Password confirmation', with: 'strongpassword'
-      select "Buffet Owner", from: 'Role'
+      select 'Buffet Owner', from: 'user_role'
       click_on 'Sign up'
 
       expect(page).to have_content('New Buffet')

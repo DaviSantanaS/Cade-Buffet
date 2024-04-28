@@ -29,6 +29,7 @@ describe 'user see a buffet details' do
       email: 'regular_user@example.com',
       password: 'password',
       name: 'Regular User',
+      cpf: '52998224725',
       buffet_owner: false
     )
 

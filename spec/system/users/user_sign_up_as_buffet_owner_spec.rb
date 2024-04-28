@@ -20,7 +20,7 @@ describe 'User sign up as buffets owner' do
     fill_in 'Email', with: 'test@gmail.com'
     fill_in 'Password', with: '123456'
     fill_in 'Password confirmation', with: '123456'
-    select "Buffet Owner", from: 'Role'
+    select 'Buffet Owner', from: 'user_role'
     click_on 'Sign up'
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
