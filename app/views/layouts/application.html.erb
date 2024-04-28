@@ -9,13 +9,13 @@
     <%= stylesheet_link_tag "application" %>
   </head>
 
-  <body>
+  <body class="centered-content">
     <header>
       <nav>
         <ul>
           <li><%= link_to "Home", root_path %></li>
           <% if current_user %>
-            <li>Hello, <% if current_user.buffet_owner? %>Buffet owner
+            <li class="user-greeting">Hello, <% if current_user.buffet_owner? %>Buffet owner
               <% else %>User
               <% end %>
               <%= current_user.name %></li>

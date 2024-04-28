@@ -1,0 +1,250 @@
+/* Estilos globais */
+header, nav ul {
+  background-color: #343a40;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #555;
+}
+
+main {
+  padding: 20px;
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-form input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-form input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para saudação ao usuário */
+.user-greeting {
+  color: white;
+}
+
+/* Estilos para o formulário de login e de cadastro */
+.login-title, .signup-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+}
+
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="text"],
+.field input[type="number"],
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.actions {
+  text-align: center;
+}
+
+.actions input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.back-link {
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+#error_explanation {
+  color: red;
+}
+
+#error_explanation h2 {
+  font-size: 18px;
+}
+
+/*event type details*/
+
+.event-type-details {
+  margin-bottom: 20px;
+}
+
+.event-type-details strong {
+  display: inline-block;
+  width: 200px;
+  font-weight: bold;
+}
+
+.event-type-details p {
+  margin-top: 10px;
+}
+
+.event-type-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.event-type-details th,
+.event-type-details td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.event-type-details th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.event-type-details th:first-child,
+.event-type-details td:first-child {
+  border-left: none;
+}
+
+.event-type-details th:last-child,
+.event-type-details td:last-child {
+  border-right: none;
+}
+
+.event-type-details td:last-child {
+  text-align: right;
+}
+
+.event-type-details .btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.event-type-details .btn:hover {
+  background-color: #0056b3;
+}
+
+/*event prices*/
+
+.event-prices-container {
+  margin-bottom: 20px;
+}
+
+.event-prices-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.event-prices-container th,
+.event-prices-container td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.event-prices-container th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.event-prices-container th:first-child,
+.event-prices-container td:first-child {
+  border-left: none;
+}
+
+.event-prices-container th:last-child,
+.event-prices-container td:last-child {
+  border-right: none;
+}
+
+.event-prices-container td:last-child {
+  text-align: right;
+}
+
+.event-prices-container .btn {
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.event-prices-container .btn-secondary {
+  background-color: #6c757d;
+}
+
+.event-prices-container .btn:hover {
+  background-color: #0056b3;
+}
+
+
+

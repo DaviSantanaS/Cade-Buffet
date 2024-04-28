@@ -41,9 +41,9 @@
 
 <% if @buffet.event_types.any? %>
   <h2>Event Types Offered</h2>
-  <ul>
-    <% @event_types.each do |event_type| %>
-      <li>
+  <div class="events-container">
+    <% @buffet.event_types.each do |event_type| %>
+      <div class="event-card">
         <strong>Name:</strong> <%= link_to event_type.name, buffet_event_type_path(@buffet, event_type) %><br>
         <strong>Description:</strong> <%= event_type.description %><br>
         <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
@@ -52,13 +52,13 @@
           <strong>Additional Price per Person:</strong> <%= number_to_currency(event_price.additional_price_per_person) %><br>
           <strong>Extra Hour Price:</strong> <%= number_to_currency(event_price.extra_hour_price) %><br>
         <% end %>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% else %>
   <p>No event types offered yet.</p>
 <% end %>
 
 <br>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", :back, class: "back-link" %>
