@@ -70,6 +70,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :buffet_owner])
   end
 
+  def sign_up_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :buffet_owner, :cpf)
+  end
+
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)

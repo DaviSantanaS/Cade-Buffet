@@ -1,50 +1,57 @@
 <h1>Buffet Details</h1>
 
-<% if user_signed_in? %>
-  <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
-    <%= link_to "Edit Buffet", edit_buffet_path(@buffet), class: "edit-button" %>
-    <br>
-    <%= link_to "New event type", new_buffet_event_type_path(@buffet) %>
-  <% end %>
+<% if user_signed_in? && current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
+  <%= link_to "Edit Buffet", edit_buffet_path(@buffet), class: "edit-button" %>
+  <br>
+  <%= link_to "New event type", new_buffet_event_type_path(@buffet) %>
+  <br>
+<% end %>
 
-  <div class="buffet-details">
-    <strong>Business Name:</strong> <%= @buffet.name %><br>
+<div class="buffet-details">
+  <strong>Business Name:</strong> <%= @buffet.name %><br>
+  <% if user_signed_in? && current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
     <strong>Company Name:</strong> <%= @buffet.company_name %><br>
     <strong>CNPJ:</strong> <%= @buffet.cnpj %><br>
-    <strong>Phone:</strong> <%= @buffet.phone %><br>
-    <strong>Contact Email:</strong> <%= @buffet.contact_email %><br>
-    <strong>Address:</strong> <%= [@buffet.address, @buffet.district, @buffet.city, @buffet.state, @buffet.zip_code].compact.join(', ') %><br>
+  <% end %>
+  <strong>Phone:</strong> <%= @buffet.phone %><br>
+  <strong>Contact Email:</strong> <%= @buffet.contact_email %><br>
+  <strong>Address:</strong> <%= [@buffet.address, @buffet.district, @buffet.city, @buffet.state, @buffet.zip_code].compact.join(', ') %><br>
 
-    <% if @buffet.description.present? %>
-      <strong>Description:</strong> <%= @buffet.description %><br>
-    <% end %>
+  <% if @buffet.description.present? %>
+    <strong>Description:</strong> <%= @buffet.description %><br>
+  <% end %>
 
-    <% if @buffet.payment_methods.present? %>
-      <strong>Payment Methods:</strong> <%= @buffet.payment_methods %><br>
-    <% end %>
+  <% if @buffet.payment_methods.present? %>
+    <strong>Payment Methods:</strong> <%= @buffet.payment_methods %><br>
+  <% end %>
 
-    <% lowest_price = nil %>
-    <% @buffet.event_types.each do |event_type| %>
-      <% event_type.event_prices.each do |event_price| %>
-        <% if lowest_price.nil? || event_price.base_price < lowest_price %>
-          <% lowest_price = event_price.base_price %>
-        <% end %>
+  <% lowest_price = nil %>
+  <% @buffet.event_types.each do |event_type| %>
+    <% event_type.event_prices.each do |event_price| %>
+      <% if lowest_price.nil? || event_price.base_price < lowest_price %>
+        <% lowest_price = event_price.base_price %>
       <% end %>
     <% end %>
+  <% end %>
 
-    <% if lowest_price %>
-      <strong>Lowest Base Price:</strong> <%= number_to_currency(lowest_price) %><br>
-    <% end %>
-  </div>
-<% end %>
+  <% if lowest_price %>
+    <strong>Lowest Base Price:</strong> <%= number_to_currency(lowest_price) %><br>
+  <% end %>
+</div>
 
 <% if @buffet.event_types.any? %>
   <h2>Event Types Offered</h2>
   <ul>
-    <% @buffet.event_types.each do |event_type| %>
+    <% @event_types.each do |event_type| %>
       <li>
-        <strong>Name:</strong> <%= link_to(event_type.name, buffet_event_type_path(@buffet, event_type)) %><br>
+        <strong>Name:</strong> <%= link_to event_type.name, buffet_event_type_path(@buffet, event_type) %><br>
         <strong>Description:</strong> <%= event_type.description %><br>
+        <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
+        <% event_type.event_prices.each do |event_price| %>
+          <strong>Base Price:</strong> <%= number_to_currency(event_price.base_price) %><br>
+          <strong>Additional Price per Person:</strong> <%= number_to_currency(event_price.additional_price_per_person) %><br>
+          <strong>Extra Hour Price:</strong> <%= number_to_currency(event_price.extra_hour_price) %><br>
+        <% end %>
       </li>
     <% end %>
   </ul>

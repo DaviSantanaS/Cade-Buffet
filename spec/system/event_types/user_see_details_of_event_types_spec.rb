@@ -36,7 +36,32 @@ describe 'User see details of event types' do
       has_decorations: false,
       has_parking_service: true,
       venue_options: "Client's Address",
-      buffet: @buffet)
+      buffet: @buffet
+    )
+
+    @event_type_2 = EventType.create!(
+      name: 'Wedding',
+      description: 'A beautiful wedding celebration',
+      min_capacity: 50,
+      max_capacity: 200,
+      duration_minutes: 240,
+      menu_text: 'Exquisite wedding menu with various options',
+      has_alcoholic_beverages: true,
+      has_decorations: true,
+      has_parking_service: true,
+      venue_options: "Buffet's Venue",
+      buffet: @buffet
+    )
+
+    @event_price = EventPrice.create!(
+      base_price: 1000,
+      additional_price_per_person: 100,
+      extra_hour_price: 500,
+      event_type: @event_type,
+      buffet: @buffet
+    )
+
+
   end
 
   it 'as buffet owner' do
@@ -55,7 +80,21 @@ describe 'User see details of event types' do
     expect(page).to have_content('No')
     expect(page).to have_content('Yes')
     expect(page).to have_content("Client's Address")
-    expect(page).to have_link('Register Price')
+    expect(page).to have_link('Add Event Price')
+  end
+
+  it 'as a user' do
+    visit root_path
+    click_on 'Buffet Name'
+
+
+    expect(page).to have_content('Event Type Name')
+    expect(page).to have_content('Event Type Description')
+    expect(page).to have_content('Event Type Menu')
+    expect(page).to have_content('Base Price: $1,000.00')
+    expect(page).to have_content('Additional Price per Person: $100.00')
+    expect(page).to have_content('Extra Hour Price: $500.00')
+
   end
 
 end

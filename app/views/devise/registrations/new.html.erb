@@ -16,7 +16,7 @@
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
@@ -26,12 +26,23 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <%= f.label :buffet_owner, "Role" %>
-  <%= f.select :buffet_owner, [['Buffet Owner', true], ['Regular User', false]] %>
+  <div class="field">
+    <%= f.label :buffet_owner, "Role" %>
+    <%= f.select :buffet_owner, [['Buffet Owner', true], ['Regular User', false]], {}, { id: 'user_role' } %>
+  </div>
+
+  <div class="field cpf_field" style="display: none;">
+    <%= f.label :cpf, "CPF" %><br />
+    <%= f.text_field :cpf %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
 
+
+
 <%= render "devise/shared/links" %>
+
+

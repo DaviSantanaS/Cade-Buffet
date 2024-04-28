@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_21_205623) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_28_013904) do
   create_table "buffets", force: :cascade do |t|
     t.string "name", null: false
     t.string "company_name", null: false
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_205623) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "buffet_owner"
+    t.string "cpf"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

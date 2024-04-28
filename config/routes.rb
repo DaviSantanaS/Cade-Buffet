@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'event_prices/index'
-  get 'event_prices/new'
-  get 'event_prices/create'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -17,4 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :home, only: [:index]
+
+  get '/search', to: 'buffets#search', as: 'search'
 end

@@ -35,7 +35,7 @@ describe 'user see a buffet details' do
   end
 
 
-  it 'sucessfully as a regular user' do
+  it 'sucessfully as a user' do
 
     login_as @regular_user, scope: :user
     visit root_path
@@ -43,8 +43,8 @@ describe 'user see a buffet details' do
 
     expect(page).to have_content('Buffet Details')
     expect(page).to have_content('Buffet Name')
-    expect(page).to have_content('Buffet Company Name')
-    expect(page).to have_content('12345678000190')
+    expect(page).not_to have_content('Buffet Company Name')
+    expect(page).not_to have_content('12345678000190')
     expect(page).to have_content('12-34567-8901')
   end
 
@@ -59,6 +59,14 @@ describe 'user see a buffet details' do
       expect(page).to have_content('Buffet Company Name')
       expect(page).to have_content('12345678000190')
       expect(page).to have_content('12-34567-8901')
+  end
+
+  it 'sucessfully as a visitor' do
+    visit root_path
+    click_on 'Buffet Name'
+
+    expect(page).to have_content('Buffet Details')
+    expect(page).to have_content('Buffet Name')
   end
 
 end

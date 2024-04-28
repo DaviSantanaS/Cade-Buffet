@@ -1,48 +1,17 @@
-<h1>Welcome to CadeBuffet!</h1>
+<h1>Welcome to CadêBuffet!</h1>
 
-<% if user_signed_in? %>
-  <% if current_user.buffet_owner? && current_user.buffet.present? %>
-    <h2><%= link_to(current_user.buffet.name, buffet_path(current_user.buffet)) %></h2>
-    <% if current_user.buffet.description.present? %>
-      <p><strong>Description:</strong> <%= current_user.buffet.description %></p>
-    <% end %>
+<% if user_signed_in? && current_user.buffet_owner? && current_user.buffet.present? %>
+  <h2><%= link_to(current_user.buffet.name, buffet_path(current_user.buffet)) %></h2>
+  <p><strong>Description:</strong> <%= current_user.buffet.description %></p>
+<% end %>
 
-    <% if @buffets.any? %>
-      <p><strong>Other Buffets:</strong></p>
-      <% @buffets.each do |buffet| %>
-        <% unless buffet == current_user.buffet %>
-          <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
-          <% if buffet.description.present? %>
-            <p><strong>Description:</strong> <%= buffet.description %></p>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% else %>
-      <p>No other buffets available.</p>
-    <% end %>
-  <% else %>
-    <% if @buffets.any? %>
-      <p><strong>Available Buffets:</strong></p>
-      <% @buffets.each do |buffet| %>
-        <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
-        <% if buffet.description.present? %>
-          <p><strong>Description:</strong> <%= buffet.description %></p>
-        <% end %>
-      <% end %>
-    <% else %>
-      <p>No buffets available.</p>
-    <% end %>
+<p><strong>Available Buffets:</strong></p>
+<% if @buffets.any? %>
+  <% @buffets.each do |buffet| %>
+    <% next if user_signed_in? && current_user.buffet_owner? && buffet == current_user.buffet %>
+    <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
+    <p><%= buffet.city %>, <%= buffet.state %></p>
   <% end %>
 <% else %>
-  <% if @buffets.any? %>
-    <p><strong>Available Buffets:</strong></p>
-    <% @buffets.each do |buffet| %>
-      <h2><%= link_to(buffet.name, buffet_path(buffet)) %></h2>
-      <% if buffet.description.present? %>
-        <p><strong>Description:</strong> <%= buffet.description %></p>
-      <% end %>
-    <% end %>
-  <% else %>
-    <p>No buffets available.</p>
-  <% end %>
+  <p>No buffets available.</p>
 <% end %>
