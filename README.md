@@ -24,7 +24,7 @@ CadeBuffet é uma aplicação desenvolvida como parte do Crash Course da Campus 
 
 - Ruby on Rails
 - HTML
-- CSS
+- SCSS 
 - JavaScript
 
 ## Contribuindo
