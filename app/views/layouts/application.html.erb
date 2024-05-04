@@ -7,31 +7,35 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "theme_switcher" %>
   </head>
 
-  <body class="centered-content">
-    <header>
-      <nav>
-        <ul>
-          <li><%= link_to "Home", root_path %></li>
-          <% if current_user %>
-            <li class="user-greeting">Hello, <% if current_user.buffet_owner? %>Buffet owner
-              <% else %>User
-              <% end %>
-              <%= current_user.name %></li>
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to "Login", new_user_session_path %></li>
-          <% end %>
-        </ul>
-        <%= render 'buffets/search_form' %>
-      </nav>
-    </header>
-    <main>
+  <body>
+  <header>
+    <nav>
+      <ul>
+        <li><%= link_to "Home", root_path, class: 'header-btn' %></li>
+        <li><%= render 'buffets/search_form' %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to 'Orders', orders_path, class: 'header-btn' %></li>
+          <li class="user-greeting">Hello, <% if current_user.buffet_owner? %>Buffet owner<% else %>User<% end %> <%= current_user.name %></li>
+          <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'header-btn btn-logout' %></li>
+        <% else %>
+          <li id="login"><%= link_to "Login", new_user_session_path, class: 'header-btn' %></li>
+        <% end %>
+        <li><button id="theme-button" class="header-btn" onclick="toggleTheme()">&#9728;</button></li> <!-- Botão do tema com ícone do sol inicialmente -->
+      </ul>
+
+    </nav>
+  </header>
+
+
+  <main class="main-content">
       <div>
         <%= alert%>
         <%= notice%>
       </div>
+
       <%= yield %>
   </main>
   </body>

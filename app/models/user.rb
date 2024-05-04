@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one :buffet, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   validates :name, presence: true
   validates :cpf, uniqueness: true, presence: true, cpf: true, if: :regular_user?

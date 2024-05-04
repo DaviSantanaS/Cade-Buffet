@@ -1,0 +1,12 @@
+<h1>My Orders</h1>
+
+<% @orders.each do |order| %>
+  <div>
+    <h3>Pedido #<%= order.id %></h3>
+    <p>Data do evento: <%= order.event_date %></p>
+    <p>Número de convidados: <%= order.guest_count %></p>
+    <p>Detalhes: <%= order.details %></p>
+    <p>Status: <%= order.status %></p>
+    <hr>
+  </div>
+<% end %>

@@ -61,6 +61,11 @@
                                                        selected: @event_type.venue_options), id: :event_type_venue_options %>
   </div>
 
+  <div class="field">
+    <%= form.label :photos, "Upload Photos" %>
+    <%= form.file_field :photos, multiple: true, direct_upload: true %>
+  </div>
+
   <div class="actions">
     <%= form.submit  %>
     <%= link_to "Back", :back, class: "back-link" %>

@@ -1,6 +1,7 @@
 class Buffet < ApplicationRecord
   belongs_to :user
   has_many :event_types, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   validates_presence_of :name, :company_name, :cnpj, :phone, :contact_email,
                         :address, :district, :state, :city, :zip_code, :user_id

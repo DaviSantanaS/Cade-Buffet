@@ -32,6 +32,7 @@ class EventTypesController < ApplicationController
     params.require(:event_type).permit(:name, :description,
                                        :min_capacity, :max_capacity,
                                        :duration_minutes, :menu_text, :has_alcoholic_beverages,
-                                       :has_decorations, :has_parking_service, :venue_options)
+                                       :has_decorations, :has_parking_service, :venue_options,) #add photos: [] later
   end
+
 end

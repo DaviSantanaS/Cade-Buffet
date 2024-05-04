@@ -1,3 +1,4 @@
+
 <h1>Buffet Details</h1>
 
 <% if user_signed_in? && current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
@@ -38,6 +39,11 @@
     <strong>Lowest Base Price:</strong> <%= number_to_currency(lowest_price) %><br>
   <% end %>
 </div>
+
+<% if user_signed_in? && !current_user.buffet_owner? %>
+  <%= link_to "Make Order", new_buffet_order_path(@buffet), class: "make-order-button" %>
+  <br>
+<% end %>
 
 <% if @buffet.event_types.any? %>
   <h2>Event Types Offered</h2>

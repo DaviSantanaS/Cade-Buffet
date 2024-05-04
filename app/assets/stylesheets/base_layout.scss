@@ -8,3 +8,10 @@
   margin: 0;
   background: #f8f8f8;
 }
+
+
+@media (min-aspect-ratio: 16/9) {
+  .centered-content {
+    align-items: flex-start;
+  }
+}

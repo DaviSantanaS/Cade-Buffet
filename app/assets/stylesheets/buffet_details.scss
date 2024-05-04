@@ -1,20 +1,19 @@
-h1 {
+.buffet-details h1 {
   font-size: 28px;
   color: #333;
 }
 
-h2 {
+.buffet-details h2 {
   font-size: 24px;
   color: #555;
 }
 
-
-a {
+.buffet-details a {
   color: #007bff;
   text-decoration: none;
 }
 
-a:hover {
+.buffet-details a:hover {
   text-decoration: underline;
 }
 
@@ -31,6 +30,8 @@ a:hover {
 }
 
 .buffet-details p {
+  font-size: 16px;
+  color: #777;
   margin-bottom: 10px;
 }
 
