@@ -1,4 +1,3 @@
-
 <h1>Buffet Details</h1>
 
 <% if user_signed_in? && current_user.buffet_owner? && current_user.actual_buffet_owner?(@buffet) %>
@@ -53,20 +52,24 @@
         <strong>Name:</strong> <%= link_to event_type.name, buffet_event_type_path(@buffet, event_type) %><br>
         <strong>Description:</strong> <%= event_type.description %><br>
         <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
+
         <% event_type.event_prices.each do |event_price| %>
           <strong>Base Price:</strong> <%= number_to_currency(event_price.base_price) %><br>
           <strong>Additional Price per Person:</strong> <%= number_to_currency(event_price.additional_price_per_person) %><br>
           <strong>Extra Hour Price:</strong> <%= number_to_currency(event_price.extra_hour_price) %><br>
         <% end %>
-        <% if event_type.days_of_week.present? %>
-          <% day_indices = JSON.parse(event_type.days_of_week) %>
-          <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
+        <% all_days = event_type.event_prices.each_with_object([]) do |event_price, days| %>
+          <% days.concat(JSON.parse(event_price.days_of_week)) if event_price.days_of_week.present? %>
+        <% end.uniq.sort %>
+
+        <% if all_days.present? %>
+          <% day_names = all_days.map { |index| Date::DAYNAMES[index.to_i] } %>
           <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
         <% end %>
-
       </div>
     <% end %>
   </div>
+
 <% else %>
   <p>No event types offered yet.</p>
 <% end %>

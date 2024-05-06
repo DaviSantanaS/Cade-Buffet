@@ -18,20 +18,17 @@ class Order < ApplicationRecord
 
 
   def calculate_price
-    day_of_week = event_date.wday
-    event_price = find_event_price_for_day(day_of_week)
+    event_price = find_event_price_for_day(event_date.wday)
 
     if event_price
-      calculated_price = if guest_count < event_type.min_capacity
-                           event_price.base_price
-                         else
-                           event_price.base_price + (guest_count - event_type.min_capacity) * event_price.additional_price_per_person
-                         end
-      update_column(:price, calculated_price)
+      base_price = calculate_based_on_capacity(event_price)
+      final_price = base_price + (price_adjustment.to_d)
+      update(price: final_price)
     else
       errors.add(:base, "No pricing available for the selected day.")
     end
   end
+
 
   private
 

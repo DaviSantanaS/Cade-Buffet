@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_order, only: [:show, :edit_price, :update_price]
   before_action :set_buffet, only: [:index, :new, :create]
 
   def index
@@ -64,19 +65,29 @@ class OrdersController < ApplicationController
   end
 
   def update_price
-    @order = Order.find(params[:id])
-    if @order.update(order_price_params)
-      redirect_to @order, notice: 'Price successfully updated.'
+    if @order.buffet == current_user.buffet
+      if @order.update(order_price_params)
+        @order.calculate_price
+        redirect_to @order, notice: 'Price successfully updated.'
+      else
+        render :edit_price, alert: 'Failed to update the price.'
+      end
     else
-      render :edit_price
+      redirect_to root_path, alert: 'Not authorized to update price for this order.'
     end
   end
 
 
   private
+
   def order_price_params
-    params.require(:order).permit(:price)
+    params.require(:order).permit(:price, :price_adjustment, :payment_method, :price_adjustment_description)
   end
+
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
 
   def set_buffet
     return unless params[:buffet_id]

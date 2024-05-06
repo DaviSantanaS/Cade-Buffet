@@ -1,14 +1,14 @@
 <h1>Edit Price for Order</h1>
 
 <%= form_with(model: @order, url: update_price_order_path(@order), method: :patch) do |form| %>
-  <div class="field">
-    <%= form.label :price, "Order Price:" %>
-    <%= form.number_field :price, step: 0.01, class: "form-control" %>
-  </div>
+  <%= form.label :price_adjustment, 'Price adjustment (negative value to set a discount)' %>
+  <%= form.number_field :price_adjustment, step: 0.01, class: "form-control" %>
 
-  <div class="actions">
-    <%= form.submit "Update Price", class: "btn btn-primary" %>
-  </div>
+  <%= form.label :payment_method, 'Payment method' %>
+  <%= form.text_field :payment_method, class: "form-control" %>
+
+  <%= form.label :price_adjustment_description, 'Adjustment price description' %>
+  <%= form.text_area :price_adjustment_description, class: "form-control" %>
+
+  <%= form.submit "Update price", class: "btn btn-primary" %>
 <% end %>
-
-<%= link_to 'Back to Order', order_path(@order), class: 'btn btn-secondary' %>
