@@ -12,6 +12,12 @@
   <strong>Has Parking Service:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
   <strong>Venue Options:</strong> <%= @event_type.venue_options %><br>
 
+  <% if @event_type.days_of_week.present? %>
+    <% day_indices = JSON.parse(@event_type.days_of_week) %>
+    <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
+    <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
+  <% end %>
+
   <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@event_type.buffet) %>
     <%= link_to "Add Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary" %>
   <% end %>

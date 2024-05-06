@@ -14,7 +14,7 @@ RSpec.describe EventType, type: :model do
     Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '22202911000134',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -40,7 +40,8 @@ RSpec.describe EventType, type: :model do
       has_decorations: false,
       has_parking_service: true,
       venue_options: 'Event Type Venue Options',
-      buffet: buffet
+      buffet: buffet,
+      days_of_week: 'Monday,Wednesday'
     )
   end
 

@@ -3,12 +3,30 @@ class Buffet < ApplicationRecord
   has_many :event_types, dependent: :destroy
   has_many :orders, dependent: :destroy
 
-  validates_presence_of :name, :company_name, :cnpj, :phone, :contact_email,
-                        :address, :district, :state, :city, :zip_code, :user_id
-  validates_format_of :cnpj, with: /\d{14}/, message: 'CNPJ must be in the format 12345678901234'
-  validates_format_of :phone, with: /\d{2}-\d{5}-\d{4}/, message: 'Phone number must be in the format XX-XXXX-XXXX'
-  validates_length_of :state, maximum: 2
-  validates_length_of :city, maximum: 255
-  validates_length_of :zip_code, maximum: 8
+  validates :name, :company_name, :cnpj, :phone, :contact_email,
+            :address, :district, :state, :city, :zip_code, :user_id, presence: true
+
+  validate :valid_cnpj
+  validate :valid_phone_format
+  validates :state, length: { maximum: 2 }
+  validates :city, length: { maximum: 255 }
+  validates :zip_code, length: { maximum: 8 }
+
+  private
+
+  def valid_cnpj
+    return if cnpj.blank?
+
+    errors.add(:cnpj, 'CNPJ must be valid') unless CNPJ.valid?(cnpj)
+  end
+
+  def valid_phone_format
+    return if phone.blank?
+
+    regex = /\A(\(\d{2}\)\s)?\d{9}\z|\A\d{11}\z|\A\d{2}-\d{5}-\d{4}\z/
+    unless phone.match?(regex)
+      errors.add(:phone, 'Phone number must be in the format (XX) XXXXXXXXX, XXXXXXXXXXX, or XX-XXXX-XXXX')
+    end
+  end
 
 end

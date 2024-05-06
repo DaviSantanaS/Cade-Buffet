@@ -15,7 +15,7 @@ RSpec.describe EventPrice, type: :model do
       Buffet.create!(
         name: 'Buffet Name',
         company_name: 'Buffet Company Name',
-        cnpj: '12345678000190',
+        cnpj: '22202911000134',
         phone: '12-34567-8901',
         contact_email: 'buffet@email.com',
         address: 'Buffet Address',
@@ -41,7 +41,8 @@ RSpec.describe EventPrice, type: :model do
         has_decorations: true,
         has_parking_service: true,
         venue_options: 1,
-        buffet_id: buffet.id
+        buffet_id: buffet.id,
+        days_of_week: '[Monday,Wednesday]'
       )
     end
 
@@ -51,7 +52,8 @@ RSpec.describe EventPrice, type: :model do
         buffet_id: buffet.id,
         base_price: 10000,
         additional_price_per_person: 500,
-        extra_hour_price: 3000
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).to be_valid
     end
@@ -61,7 +63,8 @@ RSpec.describe EventPrice, type: :model do
         buffet_id: buffet.id,
         base_price: 10000,
         additional_price_per_person: 500,
-        extra_hour_price: 3000
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).not_to be_valid
     end
@@ -71,7 +74,8 @@ RSpec.describe EventPrice, type: :model do
         event_type_id: event_type.id,
         base_price: 10000,
         additional_price_per_person: 500,
-        extra_hour_price: 3000
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).not_to be_valid
     end
@@ -81,7 +85,8 @@ RSpec.describe EventPrice, type: :model do
         event_type_id: event_type.id,
         buffet_id: buffet.id,
         additional_price_per_person: 500,
-        extra_hour_price: 3000
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).not_to be_valid
     end
@@ -91,7 +96,8 @@ RSpec.describe EventPrice, type: :model do
         event_type_id: event_type.id,
         buffet_id: buffet.id,
         base_price: 10000,
-        extra_hour_price: 3000
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).not_to be_valid
     end
@@ -101,9 +107,57 @@ RSpec.describe EventPrice, type: :model do
         event_type_id: event_type.id,
         buffet_id: buffet.id,
         base_price: 10000,
-        additional_price_per_person: 500
+        additional_price_per_person: 500,
+        days_of_week: '["Monday","Wednesday"]'
       )
       expect(event).not_to be_valid
+    end
+
+    it 'is valid with valid attributes including days_of_week' do
+      event = EventPrice.new(
+        event_type_id: event_type.id,
+        buffet_id: buffet.id,
+        base_price: 10000,
+        additional_price_per_person: 500,
+        extra_hour_price: 3000,
+        days_of_week: '["Monday","Wednesday"]'
+      )
+      expect(event).to be_valid
+    end
+
+    it 'is invalid without days_of_week' do
+      event = EventPrice.new(
+        event_type_id: event_type.id,
+        buffet_id: buffet.id,
+        base_price: 10000,
+        additional_price_per_person: 500,
+        extra_hour_price: 3000
+      )
+      expect(event).not_to be_valid
+      expect(event.errors[:days_of_week]).to include("can't be blank")
+    end
+
+    it 'checks uniqueness of days_of_week scoped to event_type_id and buffet_id' do
+      existing_event = EventPrice.create!(
+        event_type_id: event_type.id,
+        buffet_id: buffet.id,
+        base_price: 20000,
+        additional_price_per_person: 1000,
+        extra_hour_price: 2000,
+        days_of_week: '["Monday","Wednesday"]'
+      )
+
+      new_event = EventPrice.new(
+        event_type_id: event_type.id,
+        buffet_id: buffet.id,
+        base_price: 15000,
+        additional_price_per_person: 750,
+        extra_hour_price: 1500,
+        days_of_week: '["Monday","Wednesday"]'
+      )
+
+      expect(new_event).not_to be_valid
+      expect(new_event.errors[:days_of_week]).to include("has overlapping days with other prices")
     end
   end
 end

@@ -1,7 +1,10 @@
 require 'rails_helper'
 
-describe 'user makes a order' do
-  before do
+describe 'buffet owner see an order' do
+
+  it 'successfully' do
+    allow(SecureRandom).to receive(:alphanumeric).and_return('ABC12345')
+
     @buffet_owner = User.create!(
       email: 'buffet_owner@example.com',
       password: 'password',
@@ -39,6 +42,7 @@ describe 'user makes a order' do
       days_of_week: "[\"0\",\"6\"]",
       buffet_id: @buffet.id
     )
+
     @event_price = EventPrice.create!(
       base_price: 1000,
       additional_price_per_person: 100,
@@ -56,43 +60,28 @@ describe 'user makes a order' do
       buffet_owner: false
     )
 
-    login_as @regular_user, scope: :user
-  end
+    @order = Order.create!(
+      event_date: '2024-05-15',
+      guest_count: 100,
+      user_id: @regular_user.id,
+      event_type_id: @event_type.id,
+      buffet_id: @buffet.id,
+      details: 'Order Details',
+      alternative_address: 'Alternative Address'
+    )
 
-  it 'successfully' do
-    visit root_path
-    click_on 'Buffet Name'
-    click_on 'Make Order'
 
-    select 'Wedding', from: 'Event Type'
-    fill_in 'Event Date', with: '2024-05-15'
-    fill_in 'Number of Guests', with: 100
-    fill_in 'Event Details', with: 'Wedding details'
 
-    click_on 'Create Order'
-
-    expect(page).to have_content('Order Details')
-    expect(page).to have_content('Wedding')
-    expect(page).to have_content('May 15, 2024')
-    expect(page).to have_content('100')
-    expect(page).to have_content('Wedding details')
-    expect(page).to have_content('pending')
-  end
-
-  it 'and sees orders from homepage' do
-    allow(SecureRandom).to receive(:alphanumeric).and_return('ABC12345')
+    login_as @buffet_owner, scope: :user
 
     visit root_path
-    click_on 'Buffet Name'
-    click_on 'Make Order'
-    select 'Wedding', from: 'Event Type'
-    fill_in 'Event Date', with: '2024-05-15'
-    fill_in 'Number of Guests', with: 100
-    fill_in 'Event Details', with: 'Wedding details'
-    click_on 'Create Order'
-    click_on 'Orders'
+    within("nav")do
+      click_on 'Orders'
+    end
 
-    expect(page).to have_content('Order #ABC12345')
+    expect(page).to have_content('Pending')
+    expect(page).to have_content('#ABC12345')
 
   end
+
 end

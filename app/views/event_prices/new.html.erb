@@ -27,10 +27,30 @@
     <%= form.text_field :extra_hour_price %>
   </div>
 
+  <div class="days_of_week">
+    <h4>Days of the week:</h4>
+    <% if @event_type.days_of_week.present? %>
+      <% day_indices = JSON.parse(@event_type.days_of_week) %>
+      <% selected_days = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
+
+      <% selected_days.each do |day| %>
+        <% day_index = Date::DAYNAMES.index(day) %>
+        <div>
+          <%= check_box_tag "event_price[days_of_week][]", day_index.to_s, false, id: day %>
+          <%= label_tag day, day %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No specific days available for this event type.</p>
+    <% end %>
+  </div>
+
+
   <div class="actions">
     <%= form.submit "Create Price" %>
     <%= link_to "Back", :back, class: "back-link" %>
   </div>
+
 
 <% end %>
 

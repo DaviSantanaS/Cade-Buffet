@@ -12,7 +12,7 @@ describe 'buffet owner edit buffet' do
     @buffet = Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '22202911000134',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',

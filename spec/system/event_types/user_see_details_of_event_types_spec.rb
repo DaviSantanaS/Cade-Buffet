@@ -13,7 +13,7 @@ describe 'User see details of event types' do
     @buffet = Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '28934084000150',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -36,6 +36,7 @@ describe 'User see details of event types' do
       has_decorations: false,
       has_parking_service: true,
       venue_options: "Client's Address",
+      days_of_week: "[\"0\",\"6\"]",
       buffet: @buffet
     )
 
@@ -50,6 +51,7 @@ describe 'User see details of event types' do
       has_decorations: true,
       has_parking_service: true,
       venue_options: "Buffet's Venue",
+      days_of_week: "[\"1\",\"2\",\"3\",\"4\",\"5\"]",
       buffet: @buffet
     )
 
@@ -58,7 +60,8 @@ describe 'User see details of event types' do
       additional_price_per_person: 100,
       extra_hour_price: 500,
       event_type: @event_type,
-      buffet: @buffet
+      buffet: @buffet,
+      days_of_week: "[\"0\",\"6\"]",
     )
 
 

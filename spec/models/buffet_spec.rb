@@ -14,7 +14,7 @@ RSpec.describe Buffet, type: :model do
       buffet = Buffet.new(
         name: 'Test Buffet',
         company_name: 'Test Company',
-        cnpj: '12345678901234',
+        cnpj: '22202911000134',
         phone: '99-12345-6789',
         contact_email: 'test@example.com',
         address: '123 Test St',
@@ -45,15 +45,15 @@ RSpec.describe Buffet, type: :model do
 
 
     it 'is invalid with invalid CNPJ format' do
-      buffet = Buffet.new(cnpj: '12345') # Invalid CNPJ format
+      buffet = Buffet.new(cnpj: '2220291100') # Invalid CNPJ format
       expect(buffet).to_not be_valid
-      expect(buffet.errors[:cnpj]).to include('CNPJ must be in the format 12345678901234')
+      expect(buffet.errors[:cnpj]).to include('CNPJ must be valid')
     end
 
     it 'is invalid with invalid phone number format' do
       buffet = Buffet.new(phone: '12345678') # Invalid phone number format
       expect(buffet).to_not be_valid
-      expect(buffet.errors[:phone]).to include('Phone number must be in the format XX-XXXX-XXXX')
+      expect(buffet.errors[:phone]).to include("Phone number must be in the format (XX) XXXXXXXXX, XXXXXXXXXXX, or XX-XXXX-XXXX")
     end
 
     it 'is invalid with state length exceeding maximum' do

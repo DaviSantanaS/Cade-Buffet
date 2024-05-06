@@ -12,7 +12,7 @@ describe 'user see a buffet details' do
     @buffet = Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '22202911000134',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -45,7 +45,7 @@ describe 'user see a buffet details' do
     expect(page).to have_content('Buffet Details')
     expect(page).to have_content('Buffet Name')
     expect(page).not_to have_content('Buffet Company Name')
-    expect(page).not_to have_content('12345678000190')
+    expect(page).not_to have_content('22202911000134')
     expect(page).to have_content('12-34567-8901')
   end
 
@@ -58,7 +58,7 @@ describe 'user see a buffet details' do
       expect(page).to have_content('Buffet Details')
       expect(page).to have_content('Buffet Name')
       expect(page).to have_content('Buffet Company Name')
-      expect(page).to have_content('12345678000190')
+      expect(page).to have_content('22202911000134')
       expect(page).to have_content('12-34567-8901')
   end
 

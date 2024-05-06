@@ -36,7 +36,7 @@ class EventPricesController < ApplicationController
   end
 
   def event_price_params
-    params.require(:event_price).permit(:base_price, :additional_price_per_person, :extra_hour_price)
+    params.require(:event_price).permit(:base_price, :additional_price_per_person, :extra_hour_price, days_of_week: [])
   end
 
   def authorize_buffet_owner

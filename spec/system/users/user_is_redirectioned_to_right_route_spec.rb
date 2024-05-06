@@ -59,7 +59,7 @@ describe 'User is redirectioned ' do
       @buffet = Buffet.create!(
         name: 'Buffet Name',
         company_name: 'Buffet Company Name',
-        cnpj: '12345678000190',
+        cnpj: '28934084000150',
         phone: '12-34567-8901',
         contact_email: 'buffet@email.com',
         address: 'Buffet Address',
@@ -107,7 +107,7 @@ describe 'User is redirectioned ' do
       @buffet = Buffet.create!(
         name: 'Buffet Name',
         company_name: 'Buffet Company Name',
-        cnpj: '12345678000190',
+        cnpj: '28934084000150',
         phone: '12-34567-8901',
         contact_email: 'buffet@email.com',
         address: 'Buffet Address',
@@ -130,7 +130,7 @@ describe 'User is redirectioned ' do
       @buffet2 = Buffet.create!(
         name: 'Buffet Name 2',
         company_name: 'Buffet Company Name 2',
-        cnpj: '98765432000190',
+        cnpj: '28934084000150',
         phone: '98-76543-2109',
         contact_email: 'buffet2@email.com',
         address: 'Buffet Address 2',

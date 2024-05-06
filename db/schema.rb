@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_04_154925) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_230140) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_154925) do
     t.decimal "extra_hour_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "days_of_week"
     t.index ["buffet_id"], name: "index_event_prices_on_buffet_id"
     t.index ["event_type_id"], name: "index_event_prices_on_event_type_id"
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_154925) do
     t.integer "buffet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "days_of_week"
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
@@ -99,6 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_154925) do
     t.string "alternative_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price", precision: 10, scale: 2
     t.index ["buffet_id"], name: "index_orders_on_buffet_id"
     t.index ["event_type_id"], name: "index_orders_on_event_type_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

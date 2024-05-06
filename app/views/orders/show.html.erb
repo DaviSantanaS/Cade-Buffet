@@ -1,11 +1,65 @@
-<h1>Order Details</h1>
+<div class="order-details">
+  <h1>Order Details</h1>
 
-<p><%= @order.event_type.name %></p>
-<p><%= @order.status %></p>
-<p><%= @order.event_date %></p>
-<p><%= @order.guest_count %></p>
-<p><%= @order.details %></p>
-<p><%= @order.alternative_address %></p>
+  <div class="order-info">
+    <div class="info-label">Event Type:</div>
+    <div class="info-value"><%= @order.event_type.name %></div>
+  </div>
+
+  <div class="order-info">
+    <div class="info-label">Status:</div>
+    <div class="info-value"><%= @order.status %></div>
+  </div>
+
+  <div class="order-info">
+    <div class="info-label">Event Date:</div>
+    <div class="info-value"><%= @order.event_date.strftime("%B %d, %Y") %></div>
+  </div>
+
+  <div class="order-info">
+    <div class="info-label">Guest Count:</div>
+    <div class="info-value"><%= @order.guest_count %></div>
+  </div>
+
+  <div class="order-info">
+    <div class="info-label">Details:</div>
+    <div class="info-value"><%= @order.details %></div>
+  </div>
+
+  <div class="order-info">
+    <div class="info-label">Alternative Address:</div>
+    <div class="info-value"><%= @order.alternative_address %></div>
+  </div>
+
+  <% if @order.confirmed? %>
+    <div class="order-info">
+      <div class="info-label">Price:</div>
+      <div class="info-value"><%= number_to_currency(@order.price) %></div>
+    </div>
+  <% end %>
+
+  <% if current_user.buffet_owner? && @order.buffet == current_user.buffet && @order.confirmed? %>
+    <%= link_to 'Edit Price', edit_price_order_path(@order), class: 'btn btn-primary' %>
+  <% end %>
 
 
+  <% if @order.buffet == current_user.buffet && @order.status != 'cancelled' %>
+    <%= button_to 'Accept', order_path(@order, order: { status: 'confirmed' }), method: :patch, form: { class: 'd-inline' } %>
+    <%= button_to 'Cancel', order_path(@order, order: { status: 'cancelled' }), method: :patch, form: { class: 'd-inline' } %>
+  <% end %>
 
+
+  <% if @order.pending? || @order.confirmed? %>
+    <% if @conflicting_orders.present? && @conflicting_orders.any? %>
+      <div class="alert alert-warning">
+        <strong>Attention: Date conflicts with other orders!</strong>
+        <% @conflicting_orders.each do |conflict| %>
+          <p><%= link_to "Order ##{conflict.code}", order_path(conflict) %> on the same day.</p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+  <%= link_to 'Back', :back, class: 'btn btn-secondary' %>
+</div>

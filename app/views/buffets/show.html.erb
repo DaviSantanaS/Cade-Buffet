@@ -58,6 +58,12 @@
           <strong>Additional Price per Person:</strong> <%= number_to_currency(event_price.additional_price_per_person) %><br>
           <strong>Extra Hour Price:</strong> <%= number_to_currency(event_price.extra_hour_price) %><br>
         <% end %>
+        <% if event_type.days_of_week.present? %>
+          <% day_indices = JSON.parse(event_type.days_of_week) %>
+          <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
+          <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
+        <% end %>
+
       </div>
     <% end %>
   </div>

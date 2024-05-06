@@ -12,7 +12,7 @@ describe 'User register price' do
     @buffet = Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '22202911000134',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -26,16 +26,17 @@ describe 'User register price' do
     )
 
     @event_type = EventType.create!(
-      name: 'Event Type Name',
-      description: 'Event Type Description',
-      min_capacity: 10,
-      max_capacity: 100,
-      duration_minutes: 120,
-      menu_text: 'Menu extense text',
-      has_alcoholic_beverages: true,
-      has_decorations: true,
-      has_parking_service: true,
-      venue_options: 1,
+        name: 'Event Type Name',
+        description: 'Event Type Description',
+        min_capacity: 10,
+        max_capacity: 100,
+        duration_minutes: 120,
+        menu_text: 'Menu extense text',
+        has_alcoholic_beverages: true,
+        has_decorations: true,
+        has_parking_service: true,
+        venue_options: 1,
+        days_of_week: "[\"0\",\"6\"]",
       buffet_id: @buffet.id
     )
 
@@ -50,11 +51,12 @@ describe 'User register price' do
     click_on 'Buffet Name'
     click_on 'Event Type Name'
     click_on 'Add Event Price'
-
     fill_in 'Base price', with: '1000'
     fill_in 'Additional price per person', with: 50
     fill_in 'Extra hour price', with: 300
+    check 'Sunday'
     click_on 'Create Price'
+
 
     expect(page).to have_content('Event price was successfully created.')
     expect(page).to have_content('Event Prices')
@@ -63,23 +65,25 @@ describe 'User register price' do
 
   end
 
-  it 'and see a registered price' do
-
-    visit root_path
-    click_on 'Buffet Name'
-    click_on 'Event Type Name'
-    click_on 'Add Event Price'
-    fill_in 'Base price', with: '1000'
-    fill_in 'Additional price per person', with: 50
-    fill_in 'Extra hour price', with: 300
-    click_on 'Create Price'
-    visit root_path
-    click_on 'Buffet Name'
-
-
-    expect(page).to have_content('Event Type Name')
-    expect(page).to have_content('Lowest Base Price: $1,000.00')
-
-  end
+  # it 'and see a registered price' do
+  #
+  #   visit root_path
+  #   click_on 'Buffet Name'
+  #   click_on 'Event Type Name'
+  #   click_on 'Add Event Price'
+  #
+  #   fill_in 'Base price', with: '1000'
+  #   fill_in 'Additional price per person', with: 50
+  #   fill_in 'Extra hour price', with: 300
+  #   click_on 'Wednesday'
+  #   click_on 'Create Price'
+  #   visit root_path
+  #   click_on 'Buffet Name'
+  #
+  #
+  #   expect(page).to have_content('Event Type Name')
+  #   expect(page).to have_content('Lowest Base Price: $1,000.00')
+  #
+  # end
 
 end

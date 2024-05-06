@@ -12,7 +12,7 @@ describe 'buffet owner create event type' do
     @buffet = Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '20516752000117',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -42,7 +42,13 @@ describe 'buffet owner create event type' do
     check 'Has alcoholic beverages'
     check 'Has decorations'
     check 'Has parking service'
+    check 'Monday'
+    check 'Sunday'
+
+
+
     select "Client's Address", from: 'Venue options'
+
 
     click_on 'Create Event type'
 

@@ -1,3 +1,4 @@
+<h1>New Event Type</h1>
 <%= form_with(model: @event_type, url: buffet_event_types_path(@buffet)) do |form| %>
   <% if @event_type.errors.any? %>
     <div id="error_explanation">
@@ -9,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+
 
   <div class="field">
     <%= form.label :name %>
@@ -54,6 +56,18 @@
     <%= form.label :has_parking_service %>
     <%= form.check_box :has_parking_service, id: :event_type_has_parking_service %>
   </div>
+
+  <div class="field">
+    <%= form.label :days_of_week, "Select Days of Week" %><br>
+    <% Date::DAYNAMES.each_with_index do |day, index| %>
+      <%= check_box_tag "event_type[days_of_week][]", index, @event_type.days_of_week&.include?(index.to_s), id: day %>
+      <%= label_tag day, day %><br>
+    <% end %>
+  </div>
+
+
+
+
 
   <div class="field">
     <%= form.label :venue_options %>

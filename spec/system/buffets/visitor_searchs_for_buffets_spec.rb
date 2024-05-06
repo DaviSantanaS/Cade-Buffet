@@ -32,7 +32,7 @@ describe 'visitor searchs for buffets' do
     @buffet_4 = Buffet.create!(
       name: 'Buffet Name 4',
       company_name: 'Buffet Company Name 4',
-      cnpj: '45678900100145',
+      cnpj: '22202911000134',
       phone: '45-67890-1234',
       contact_email: 'buffet4@email.com',
       address: 'Buffet Address 4',
@@ -47,7 +47,7 @@ describe 'visitor searchs for buffets' do
     @buffet = Buffet.create!(
       name: 'Buffet Name 1',
       company_name: 'Buffet Company Name',
-      cnpj: '12345678000190',
+      cnpj: '22202911000134',
       phone: '12-34567-8901',
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
@@ -62,7 +62,7 @@ describe 'visitor searchs for buffets' do
     @buffet_3 = Buffet.create!(
       name: 'Buffet Name 3',
       company_name: 'Buffet Company Name 3',
-      cnpj: '34567890000134',
+      cnpj: '22202911000134',
       phone: '34-56789-0123',
       contact_email: 'buffet3@email.com',
       address: 'Buffet Address 3',
@@ -77,7 +77,7 @@ describe 'visitor searchs for buffets' do
     @buffet_2 = Buffet.create!(
       name: 'Buffet Name 2',
       company_name: 'Buffet Company Name 2',
-      cnpj: '23456789000123',
+      cnpj: '22202911000134',
       phone: '23-45678-9012',
       contact_email: 'buffet2@email.com',
       address: 'Buffet Address 2',
@@ -101,7 +101,8 @@ describe 'visitor searchs for buffets' do
       has_decorations: true,
       has_parking_service: true,
       venue_options: "Buffet's Venue 4",
-      buffet: @buffet_4
+      buffet: @buffet_4,
+      days_of_week: 'Monday,Wednesday'
     )
     @event_type_3 = EventType.create!(
       name: 'Event Type Name 3',
@@ -114,7 +115,9 @@ describe 'visitor searchs for buffets' do
       has_decorations: true,
       has_parking_service: false,
       venue_options: "Buffet's Venue 3",
+      days_of_week: 'Monday,Wednesday',
       buffet: @buffet_3
+
     )
     @event_type_2 = EventType.create!(
       name: 'Event Type Name 2',
@@ -127,7 +130,9 @@ describe 'visitor searchs for buffets' do
       has_decorations: true,
       has_parking_service: true,
       venue_options: "Client's Address 2",
+      days_of_week: 'Monday,Wednesday',
       buffet: @buffet_2
+
     )
 
   end

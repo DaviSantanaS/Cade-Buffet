@@ -17,7 +17,7 @@ describe 'Buffet owner register a buffet' do
 
     fill_in 'Name', with: 'Buffet Name'
     fill_in 'Company name', with: 'Buffet Company Name'
-    fill_in 'Cnpj', with: '12345678000190'
+    fill_in 'Cnpj', with: '22202911000134'
     fill_in 'Phone', with: '12-34567-8901'
     fill_in 'Contact email', with: 'contact@email.com'
     fill_in 'Address', with: 'Buffet Address'
@@ -33,7 +33,7 @@ describe 'Buffet owner register a buffet' do
 
     expect(page).to have_content('Buffet Name')
     expect(page).to have_content('Buffet Company Name')
-    expect(page).to have_content('12345678000190')
+    expect(page).to have_content('22202911000134')
     expect(page).to have_content('12-34567-8901')
     expect(page).to have_content('No event types offered yet.')
 
