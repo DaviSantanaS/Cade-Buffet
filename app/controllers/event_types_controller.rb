@@ -1,5 +1,6 @@
 class EventTypesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_event_type, only: [:show, :add_photo]
 
 
   def index
@@ -36,6 +37,20 @@ class EventTypesController < ApplicationController
     render json: { days: days_of_week }
   end
 
+  def add_photo
+    if params.dig(:event_type, :photo)
+      photo = @event_type.photos.new(image: params.dig(:event_type, :photo), author: current_user.name, published_at: Time.now)
+      if photo.save
+        redirect_to @event_type, notice: 'Photo added successfully.'
+      else
+        redirect_to @event_type, alert: 'Failed to add photo. ' + photo.errors.full_messages.to_sentence
+      end
+    else
+      redirect_to @event_type, alert: 'No photo was provided.'
+    end
+  end
+
+
   private
 
   def event_type_params
@@ -43,6 +58,14 @@ class EventTypesController < ApplicationController
                                        :min_capacity, :max_capacity,
                                        :duration_minutes, :menu_text, :has_alcoholic_beverages,
                                        :has_decorations, :has_parking_service, :venue_options, days_of_week: []) #add photos: [] later
+  end
+
+  def photo_params
+    params.require(:photo).permit(:image, :author, :published_at)
+  end
+
+  def set_event_type
+    @event_type = EventType.find(params[:id])
   end
 
 end

@@ -40,3 +40,9 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+
+  gem 'selenium-webdriver', '4.19.0'
+  gem 'webdrivers', '~> 5.0'
+end
+

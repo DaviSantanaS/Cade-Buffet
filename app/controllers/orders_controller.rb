@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit_price, :update_price]
+  before_action :set_order, only: [:show, :edit_price, :update_price, :confirm_by_client]
   before_action :set_buffet, only: [:index, :new, :create]
 
   def index
@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
         @pending_orders = @buffet.orders.where(status: 'pending').order(created_at: :desc)
         @other_orders = @buffet.orders.where.not(status: 'pending').order(created_at: :desc)
       else
-        redirect_to root_path, alert: 'Buffet not found or access denied.'
+        redirect_to root_path, alert: 'Access denied.'
         return
       end
     elsif current_user.regular_user?
@@ -77,16 +77,38 @@ class OrdersController < ApplicationController
     end
   end
 
+  def confirm_by_client
+    if @order.nil?
+      redirect_to root_path, alert: 'Order not found.'
+      return
+    end
+
+    if @order.user != current_user || @order.confirmed_by_client
+      redirect_to orders_path, alert: 'Not authorized.'
+      return
+    end
+
+    if @order.confirm_by_client!
+      redirect_to orders_path, notice: 'Order successfully confirmed!'
+    else
+      redirect_to orders_path, alert: 'Failed to confirm the order.'
+    end
+  end
+
 
   private
 
   def order_price_params
-    params.require(:order).permit(:price, :price_adjustment, :payment_method, :price_adjustment_description)
+    params.require(:order).permit(:price, :price_adjustment, :payment_method, :price_adjustment_description, :price_validity)
   end
 
   def set_order
-    @order = Order.find(params[:id])
+    @order = Order.find_by(id: params[:id])
+    if @order.nil?
+      redirect_to root_path, alert: 'Order not found.'
+    end
   end
+
 
 
   def set_buffet

@@ -158,5 +158,17 @@ describe 'visitor searchs for buffets' do
     expect(page).to have_content('Buffet Name 4')
   end
 
+  it 'and the buffets are ordered by name' do
+    visit root_path
+    fill_in 'query', with: 'Buff'
+    click_on 'Search'
+
+    first_buffet = find('.buffet-list li:first-child').text
+    last_buffet = find('.buffet-list li:last-child').text
+
+    expect(first_buffet).to include('Buffet Name 2')
+    expect(last_buffet).to include('Buffet Name 4')
+  end
+
 
 end

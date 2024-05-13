@@ -1,0 +1,76 @@
+.event-type-details {
+  h1, h2 {
+    font-size: 28px;
+    color: #333;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .actions, .event-prices {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+
+    button, a {
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  .carousel {
+    margin-top: 20px;
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: #000;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+
+    .carousel-item img {
+      max-height: 100px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      margin: auto;
+    }
+  }
+
+  .event-prices {
+    table {
+      width: 100%;
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-top: 1px solid #dee2e6;
+      }
+
+      th {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+
+  .carousel-container {
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .event-type-details .carousel-item img {
+    max-height: 300px;
+    width: auto;
+    margin: auto;
+  }
+}

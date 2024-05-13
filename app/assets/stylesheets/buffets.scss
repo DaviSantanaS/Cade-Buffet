@@ -53,3 +53,28 @@
   gap: 20px;
   justify-content: center;
 }
+
+.event-card {
+  .carousel {
+    margin-bottom: 10px;
+
+    .carousel-inner {
+      .carousel-item {
+        text-align: center;
+        img {
+          max-height: 150px;
+          width: auto;
+          margin: 0 auto;
+        }
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: #000;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

@@ -48,6 +48,10 @@
     <%= button_to 'Cancel', order_path(@order, order: { status: 'cancelled' }), method: :patch, form: { class: 'd-inline' } %>
   <% end %>
 
+  <% if @order.status == 'confirmed' && !@order.confirmed_by_client && @order.price_validity && @order.price_validity >= Date.today %>
+    <%= button_to 'Confirm Order', confirm_by_client_order_path(@order), method: :patch, class: 'btn btn-primary' %>
+  <% end %>
+
 
   <% if @order.pending? || @order.confirmed? %>
     <% if @conflicting_orders.present? && @conflicting_orders.any? %>
@@ -61,5 +65,13 @@
   <% end %>
 
 
-  <%= link_to 'Back', :back, class: 'btn btn-secondary' %>
+  <% if current_user.buffet_owner? %>
+    <% buffet_id = current_user.buffet.try(:id) %>
+    <% if buffet_id %>
+      <%= link_to 'Back', buffet_orders_path(buffet_id), class: 'header-btn' %>
+    <% else %>
+      <%= link_to 'Back', orders_path, class: 'header-btn' %>
+    <% end %>
+  <% else %>
+  <% end %>
 </div>

@@ -1,5 +1,5 @@
 <h2>Search Results</h2>
-<ul>
+<ul class="buffet-list">
   <% @buffets.each do |buffet| %>
     <li><%= link_to buffet.name, buffet_path(buffet) %></li>
   <% end %>

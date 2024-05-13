@@ -10,5 +10,8 @@
   <%= form.label :price_adjustment_description, 'Adjustment price description' %>
   <%= form.text_area :price_adjustment_description, class: "form-control" %>
 
+  <%= form.label :price_validity, 'Price Validity Date' %>
+  <%= form.date_field :price_validity, class: "form-control" %>
+
   <%= form.submit "Update price", class: "btn btn-primary" %>
 <% end %>

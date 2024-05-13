@@ -5,12 +5,16 @@ class Order < ApplicationRecord
 
   validates :event_date, :guest_count, :details, presence: true
   validates :code, uniqueness: true, length: { is: 8 }
+  validates :price_validity, presence: true, if: -> { status == 'confirmed' }
+
   validate :guest_count_within_capacity, on: :create
   validate :event_date_cannot_be_in_the_past
 
 
   before_validation :generate_code, on: :create
   before_validation :set_default_status, on: :create
+  before_save :set_default_price_validity, if: -> { price_validity.blank? }
+
 
 
   enum status: { pending: 'pending', confirmed: 'confirmed', cancelled: 'cancelled' }
@@ -27,6 +31,12 @@ class Order < ApplicationRecord
     else
       errors.add(:base, "No pricing available for the selected day.")
     end
+  end
+
+  def confirm_by_client!
+    return false if Date.today > self.price_validity || self.confirmed_by_client
+
+    update(confirmed_by_client: true)
   end
 
 
@@ -48,7 +58,7 @@ class Order < ApplicationRecord
   end
 
   def event_date_cannot_be_in_the_past
-    errors.add(:event_date, "can't be in the past") if event_date.present? && event_date < Date.today
+    errors.add(:event_date, "can't be in the past") if event_date.present? && event_date < Date.current
   end
 
 
@@ -67,5 +77,10 @@ class Order < ApplicationRecord
       event_price.base_price + (guest_count - event_type.min_capacity) * event_price.additional_price_per_person
     end
   end
+
+  def set_default_price_validity
+    self.price_validity = Date.today + 2.days
+  end
+
 end
 

@@ -49,6 +49,25 @@
   <div class="events-container">
     <% @buffet.event_types.each do |event_type| %>
       <div class="event-card">
+        <% if event_type.photos.any? %>
+          <div id="carousel<%= event_type.id %>" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <% event_type.photos.each_with_index do |photo, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>">
+                  <%= image_tag(photo.image, class: "d-block w-100", style: "max-height: 150px;") if photo.image.attached? %>
+                </div>
+              <% end %>
+            </div>
+            <a class="carousel-control-prev" href="#carousel<%= event_type.id %>" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel<%= event_type.id %>" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        <% end %>
         <strong>Name:</strong> <%= link_to event_type.name, buffet_event_type_path(@buffet, event_type) %><br>
         <strong>Description:</strong> <%= event_type.description %><br>
         <strong>Menu Text:</strong> <%= event_type.menu_text %><br>
@@ -69,6 +88,7 @@
       </div>
     <% end %>
   </div>
+
 
 <% else %>
   <p>No event types offered yet.</p>

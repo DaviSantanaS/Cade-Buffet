@@ -1,57 +1,80 @@
 <h1>Event Type Details</h1>
 
-<div class="event-type-details">
-  <strong>Name:</strong> <%= @event_type.name %><br>
-  <strong>Description:</strong> <%= @event_type.description %><br>
-  <strong>Min Capacity:</strong> <%= @event_type.min_capacity %><br>
-  <strong>Max Capacity:</strong> <%= @event_type.max_capacity %><br>
-  <strong>Duration (minutes):</strong> <%= @event_type.duration_minutes %><br>
-  <strong>Menu Text:</strong> <%= @event_type.menu_text %><br>
-  <strong>Has Alcoholic Beverages:</strong> <%= @event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
-  <strong>Has Decorations:</strong> <%= @event_type.has_decorations? ? 'Yes' : 'No' %><br>
-  <strong>Has Parking Service:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
-  <strong>Venue Options:</strong> <%= @event_type.venue_options %><br>
-
-  <% if @event_type.days_of_week.present? %>
-    <% day_indices = JSON.parse(@event_type.days_of_week) %>
-    <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
-    <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
-  <% end %>
+<div class="event-type-details mb-4">
+  <div class="mb-3">
+    <strong>Name:</strong> <%= @event_type.name %><br>
+    <strong>Description:</strong> <%= @event_type.description %><br>
+    <strong>Min Capacity:</strong> <%= @event_type.min_capacity %><br>
+    <strong>Max Capacity:</strong> <%= @event_type.max_capacity %><br>
+    <strong>Duration (minutes):</strong> <%= @event_type.duration_minutes %><br>
+    <strong>Menu Text:</strong> <%= @event_type.menu_text %><br>
+    <strong>Has Alcoholic Beverages:</strong> <%= @event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
+    <strong>Has Decorations:</strong> <%= @event_type.has_decorations? ? 'Yes' : 'No' %><br>
+    <strong>Has Parking Service:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
+    <strong>Venue Options:</strong> <%= @event_type.venue_options %><br>
+    <% if @event_type.days_of_week.present? %>
+      <% day_indices = JSON.parse(@event_type.days_of_week) %>
+      <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
+      <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
+    <% end %>
+  </div>
 
   <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@event_type.buffet) %>
-    <%= link_to "Add Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary" %>
+    <div class="actions mb-3">
+      <%= link_to "Add Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary mr-2" %>
+      <%= form_with(model: @event_type, url: add_photo_event_type_path(@event_type), local: true, html: { multipart: true }, method: :patch) do |form| %>
+        <%= form.label :photo, "Upload Photo", class: "d-block" %>
+        <%= form.file_field :photo, required: true, class: "mb-2" %>
+        <%= form.submit "Add Photo", class: "btn btn-success" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @event_type.photos.any? %>
+    <div id="photosCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% @event_type.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= image_tag(photo.image, class: "d-block w-100") if photo.image.attached? %>
+          </div>
+        <% end %>
+      </div>
+      <a class="carousel-control-prev" href="#photosCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#photosCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
   <% end %>
 
   <% if @event_type.event_prices.any? %>
-    <h2>Event Prices</h2>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Base Price</th>
-        <th>Additional Price per Person</th>
-        <th>Extra Hour Price</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @event_type.event_prices.each do |event_price| %>
+    <div class="event-prices mb-3">
+      <h2>Event Prices</h2>
+      <table class="table">
+        <thead>
         <tr>
-          <td><%= number_to_currency(event_price.base_price) %></td>
-          <td><%= number_to_currency(event_price.additional_price_per_person) %></td>
-          <td><%= number_to_currency(event_price.extra_hour_price) %></td>
+          <th>Base Price</th>
+          <th>Additional Price per Person</th>
+          <th>Extra Hour Price</th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <% @event_type.event_prices.each do |event_price| %>
+          <tr>
+            <td><%= number_to_currency(event_price.base_price) %></td>
+            <td><%= number_to_currency(event_price.additional_price_per_person) %></td>
+            <td><%= number_to_currency(event_price.extra_hour_price) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   <% else %>
     <p>No event prices available for this event type.</p>
   <% end %>
-
-  <%# @event_type.photos.each do |photo| %>
-    <%#= image_tag(photo, size: "200x200") %>
-  <%# end %>
-
 </div>
 
-<br>
-
-<%= link_to "Back to Buffet", buffet_path(@event_type.buffet) %>
+<%= link_to "Back to Buffet", buffet_path(@event_type.buffet), class: "btn btn-secondary" %>

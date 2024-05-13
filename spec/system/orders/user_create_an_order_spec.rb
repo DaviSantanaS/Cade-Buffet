@@ -1,15 +1,14 @@
 require 'rails_helper'
 
-describe 'user makes a order' do
-  before do
-    @buffet_owner = User.create!(
+RSpec.describe 'User makes an order', type: :feature do
+  let!(:buffet_owner) {
+    User.create!(
       email: 'buffet_owner@example.com',
       password: 'password',
       name: 'Buffet Owner',
-      buffet_owner: true
-    )
-
-    @buffet = Buffet.create!(
+      buffet_owner: true) }
+  let!(:buffet) {
+    Buffet.create!(
       name: 'Buffet Name',
       company_name: 'Buffet Company Name',
       cnpj: '28934084000150',
@@ -17,49 +16,39 @@ describe 'user makes a order' do
       contact_email: 'buffet@email.com',
       address: 'Buffet Address',
       district: 'Buffet District',
-      state: 'BS',
-      city: 'Buffet City',
+      state: 'BS', city: 'Buffet City',
       description: 'Buffet Description',
       payment_methods: 'Buffet Payment methods',
-      zip_code: '12345678',
-      user_id: @buffet_owner.id
+      zip_code: '12345678', user: buffet_owner
     )
-
-    @event_type = EventType.create!(
+  }
+  let!(:event_type) {
+    EventType.create!(
       name: 'Wedding',
       description: 'Wedding event type description',
-      min_capacity: 50,
-      max_capacity: 200,
+      min_capacity: 50, max_capacity: 200,
       duration_minutes: 360,
       menu_text: 'Wedding menu options',
       has_alcoholic_beverages: true,
       has_decorations: true,
       has_parking_service: true,
       venue_options: 'Buffet venue options',
-      days_of_week: "[\"0\",\"6\"]",
-      buffet_id: @buffet.id
+      days_of_week: "[\"0\",\"6\"]", buffet: buffet
     )
-    @event_price = EventPrice.create!(
-      base_price: 1000,
-      additional_price_per_person: 100,
-      extra_hour_price: 500,
-      event_type: @event_type,
-      buffet: @buffet,
-      days_of_week: "[\"0\",\"6\"]",
-      )
-
-    @regular_user = User.create!(
-      email: 'regular_user@example.com',
-      password: 'password',
-      name: 'Regular User',
-      cpf: '52998224725',
-      buffet_owner: false
+  }
+  let!(:event_price) {
+    EventPrice.create!(
+      base_price: 1000, additional_price_per_person: 100, extra_hour_price: 500,
+      event_type: event_type, buffet: buffet, days_of_week: "[\"0\",\"6\"]"
     )
+  }
+  let!(:regular_user) { User.create!(email: 'regular_user@example.com', password: 'password', name: 'Regular User', cpf: '52998224725', buffet_owner: false) }
 
-    login_as @regular_user, scope: :user
+  before do
+    login_as regular_user, scope: :user
   end
 
-  it 'successfully' do
+  it 'successfully creates an order' do
     visit root_path
     click_on 'Buffet Name'
     click_on 'Make Order'
@@ -79,7 +68,7 @@ describe 'user makes a order' do
     expect(page).to have_content('pending')
   end
 
-  it 'and sees orders from homepage' do
+  it 'displays the order in the orders list with a generated order number' do
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABC12345')
 
     visit root_path
@@ -93,6 +82,22 @@ describe 'user makes a order' do
     click_on 'Orders'
 
     expect(page).to have_content('Order #ABC12345')
+  end
 
+  context 'when required fields are missing' do
+    it 'fails to create an order' do
+      visit root_path
+      click_on 'Buffet Name'
+      click_on 'Make Order'
+
+      select 'Wedding', from: 'Event Type'
+
+      click_on 'Create Order'
+
+      expect(page).to have_content('error')
+      expect(page).to have_content("Event date can't be blank")
+      expect(page).to have_content("Guest count can't be blank")
+      expect(page).to have_content("Details can't be blank")
+    end
   end
 end

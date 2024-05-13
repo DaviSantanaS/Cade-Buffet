@@ -27,4 +27,6 @@ describe 'User sign up as buffets owner' do
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Hello, Buffet owner Test')
   end
+
+
 end
