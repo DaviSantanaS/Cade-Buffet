@@ -1,6 +1,6 @@
 class Api::V1::EventTypesController < ActionController::API
   before_action :set_buffet
-  before_action :set_event_type, only: [:index, :check_availability]
+  before_action :set_event_type, only: [:check_availability]
 
   def index
     event_types = @buffet.event_types
@@ -19,7 +19,7 @@ class Api::V1::EventTypesController < ActionController::API
 
       if available
         estimated_price = @event_type.calculate_price(guest_count, event_date)
-        if estimated_price.zero?
+        if estimated_price.nil? || estimated_price.zero?
           render json: { available: false, error: "No price set for this day" }, status: :unprocessable_entity
         else
           render json: { available: true, estimated_price: estimated_price }

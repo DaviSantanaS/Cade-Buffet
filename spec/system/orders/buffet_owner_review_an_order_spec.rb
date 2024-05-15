@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Buffet owner manages orders', type: :feature do
-  let(:buffet_owner) { User.create!(email: 'buffet_owner@example.com', password: 'password', name: 'Buffet Owner', buffet_owner: true) }
+  let(:buffet_owner) {
+    User.create!(
+      email: 'buffet_owner@example.com',
+      password: 'password',
+      name: 'Buffet Owner',
+      buffet_owner: true) }
+
   let(:buffet) {
     Buffet.create!(
       name: 'Buffet Name', company_name: 'Buffet Company Name', cnpj: '28934084000150',
@@ -10,6 +16,7 @@ RSpec.describe 'Buffet owner manages orders', type: :feature do
       payment_methods: 'Buffet Payment methods', zip_code: '12345678', user: buffet_owner
     )
   }
+
   let(:event_type) {
     EventType.create!(
       name: 'Wedding', description: 'Wedding event type description', min_capacity: 50, max_capacity: 200,
@@ -18,35 +25,48 @@ RSpec.describe 'Buffet owner manages orders', type: :feature do
       days_of_week: '["0","6"]', buffet: buffet
     )
   }
+  let(:event_price) {
+    EventPrice.create!(
+      event_type_id: event_type.id,
+      buffet_id: buffet.id,
+      base_price: 7000,
+      additional_price_per_person: 70 ,
+      extra_hour_price: 500,
+      days_of_week: "[\"0\",\"6\"]"
+    )
+  }
+
   let!(:order) {
     Order.create!(
-      user: buffet_owner, buffet: buffet, event_type: event_type, event_date: Date.tomorrow,
+      user: buffet_owner, buffet: buffet, event_type: event_type, event_date: Date.today.next_occurring(:sunday),
       guest_count: 100, details: 'Wedding details', status: 'pending'
     )
   }
+
   let!(:conflicting_order) {
     Order.create!(
-      user: buffet_owner, buffet: buffet, event_type: event_type, event_date: Date.tomorrow,
-      guest_count: 150, details: 'Another Wedding details', status: 'pending'
+      user: buffet_owner, buffet: buffet, event_type: event_type, event_date: Date.today.next_occurring(:sunday),
+      guest_count: 150, details: 'Another Wedding details', status: 'confirmed', price_validity: 1.day.from_now
     )
   }
 
   before do
     login_as(buffet_owner, scope: :user)
-    visit orders_path
+    visit buffet_orders_path(buffet)
   end
 
-  # it 'displays all orders with pending orders separated' do
-  #   expect(page).to have_content('Pending Orders')
-  #   within('.pending-orders') do
-  #     expect(page).to have_content(order.event_date.strftime("%d/%m/%Y"))
-  #     expect(page).to have_content('Pending')
-  #     expect(page).to have_content(order.details)
-  #   end
-  #
-  #   expect(page).to have_content('Orders')
-  #   within('.other-orders') do
-  #     expect(page).not_to have_content('Pending')
-  #   end
-  # end
+  it 'displays all orders with pending orders separated' do
+    expect(page).to have_content('Pending Orders')
+    within('.pending-orders') do
+      expect(page).to have_content("Order ##{order.code}")
+      expect(page).to have_content('Pending')
+    end
+
+    expect(page).to have_content('Orders')
+    within('.other-orders') do
+      expect(page).not_to have_content('Pending')
+      expect(page).to have_content('Confirmed')
+      expect(page).to have_content("Order ##{conflicting_order.code}")
+    end
+  end
 end

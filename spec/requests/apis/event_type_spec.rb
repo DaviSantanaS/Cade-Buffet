@@ -40,6 +40,7 @@ RSpec.describe "EventTypes API", type: :request do
           venue_options: 1,
           days_of_week: "[\"0\",\"6\"]",
           buffet_id: @buffet.id),
+
         @buffet.event_types.create!(
           name: 'Birthday',
           description: 'Fun birthday party',
