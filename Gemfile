@@ -18,6 +18,9 @@ gem "devise"
 
 gem 'cpf_cnpj'
 
+gem 'rack-cors'
+
+
 gem 'bootstrap'
 gem "sassc-rails"
 
