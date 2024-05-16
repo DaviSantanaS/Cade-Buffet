@@ -1,7 +1,10 @@
-# Vue 3 + Vite
+# Criado para responder ao exercicio:
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Que tal surpreender nosso cliente com uma versão da Cadê Buffet? usando VueJS? Nesta tarefa você deve criar uma versão focada nos visitantes do site usando VueJS e consumindo a API recém-criada.
 
-## Recommended IDE Setup
+Funcionalidades esperadas:
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+- Tela inicial com listagem de buffets
+- Tela de detalhes de um buffet com detalhes dos tipos de eventos
+- Busca de buffets a partir da tela inicial
+- Consulta de disponibilidade para realização de um evento
