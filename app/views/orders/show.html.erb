@@ -47,20 +47,24 @@
     <%= button_to t('views.order.show.actions.cancel'), order_path(@order, order: { status: 'cancelled' }), method: :patch, form: { class: 'd-inline' } %>
   <% end %>
 
-  <% if @order.status == 'confirmed' && !@order.confirmed_by_client && @order.price_validity && @order.price_validity >= Date.today %>
-    <%= button_to t('views.order.show.actions.confirm_order'), confirm_by_client_order_path(@order), method: :patch, class: 'btn btn-primary' %>
-  <% end %>
-
-  <% if @order.pending? || @order.confirmed? %>
-    <% if @conflicting_orders.present? && @conflicting_orders.any? %>
-      <div class="alert alert-warning">
-        <strong><%= t('views.order.show.conflicts.attention') %></strong>
-        <% @conflicting_orders.each do |conflict| %>
-          <p><%= link_to t('views.order.show.conflicts.conflict_order', order_code: conflict.code), order_path(conflict) %> </p>
-        <% end %>
-      </div>
+  <% unless current_user.buffet_owner? %>
+    <% if @order.status == 'confirmed' && !@order.confirmed_by_client && @order.price_validity && @order.price_validity >= Date.today %>
+      <%= button_to t('views.order.show.actions.confirm_order'), confirm_by_client_order_path(@order), method: :patch, class: 'btn btn-primary' %>
     <% end %>
   <% end %>
+
+  <% if current_user.buffet_owner? %>
+    <%  if @order.pending? || @order.confirmed?  %>
+      <%  if @conflicting_orders.present? && @conflicting_orders.any? %>
+      <div class="alert alert-warning">
+            <strong><%=  t('views.order.show.conflicts.attention')  %></strong>
+        <%  @conflicting_orders.each do |conflict|  %>
+        <p><%= link_to t('views.order.show.conflicts.conflict_order', order_code: conflict.code), order_path(conflict) %> </p>
+        <%  end  %>
+      </div>
+     <%  end %>
+    <%  end %>
+  <%  end %>
 
   <% if current_user.buffet_owner? %>
     <% buffet_id = current_user.buffet.try(:id) %>
