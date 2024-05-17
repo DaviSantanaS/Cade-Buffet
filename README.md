@@ -17,7 +17,15 @@ cd Cade-Buffet
 bundle install
 rails db:migrate
 rails server
+rails db:seed
 ```
+## Credenciais 
+### Dono de Buffet:
+- user: owner1@buffet.com
+- pwd: 123456
+### Cliente:
+- user: client1@client.com
+- pwd: 123456
 
 ## Requisitos do Sistema
 - **Ruby 3.3 ou superior**
