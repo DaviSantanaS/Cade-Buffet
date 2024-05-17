@@ -12,17 +12,28 @@ CadeBuffet é uma aplicação web desenvolvida para conectar pessoas que desejam
 ## Instalação
 
 ```bash
-git clone https://github.com/seu-usuario/cade-buffet.git
-cd cade-buffet
+git clone https://github.com/DaviSantanaS/Cade-Buffet.git
+cd Cade-Buffet
 bundle install
 rails db:migrate
 rails server
+rails db:seed
 ```
+## Credenciais 
+### Dono de Buffet:
+- user: owner1@buffet.com
+- pwd: 123456
+### Cliente:
+- user: client1@client.com
+- pwd: 123456
 
 ## Requisitos do Sistema
 - **Ruby 3.3 ou superior**
 - **Rails 7.0 ou superior**
 - **Banco de dados sqlite3**
+- **npm 10.7.0**
+- **node 22.2.0**
+- O **bootstrap** foi utilizado via **CDN**
 
 ## Tecnologias Utilizadas
 
