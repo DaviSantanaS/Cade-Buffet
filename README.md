@@ -13,7 +13,7 @@ CadeBuffet é uma aplicação web desenvolvida para conectar pessoas que desejam
 
 ```bash
 git clone https://github.com/DaviSantanaS/Cade-Buffet.git
-cd cade-buffet
+cd Cade-Buffet
 bundle install
 rails db:migrate
 rails server
