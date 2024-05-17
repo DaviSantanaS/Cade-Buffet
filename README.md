@@ -16,8 +16,8 @@ git clone https://github.com/DaviSantanaS/Cade-Buffet.git
 cd Cade-Buffet
 bundle install
 rails db:migrate
-rails server
 rails db:seed
+rails server
 ```
 ## Credenciais 
 ### Dono de Buffet:
