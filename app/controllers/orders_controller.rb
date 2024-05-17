@@ -9,16 +9,15 @@ class OrdersController < ApplicationController
         @pending_orders = @buffet.orders.where(status: 'pending').order(created_at: :desc)
         @other_orders = @buffet.orders.where.not(status: 'pending').order(created_at: :desc)
       else
-        redirect_to root_path, alert: 'Access denied.'
+        redirect_to root_path, alert: I18n.t('controllers.orders.unauthorized')
         return
       end
     elsif current_user.regular_user?
       @client_orders = current_user.orders.order(created_at: :desc)
     else
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.unauthorized')
     end
   end
-
 
   def new
     @event_types = @buffet.event_types
@@ -30,7 +29,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build(order_params)
     @order.buffet = @buffet
     if @order.save
-      redirect_to order_path(@order), notice: 'Order was successfully created.'
+      redirect_to order_path(@order), notice: I18n.t('controllers.orders.created')
     else
       @event_types = @buffet.event_types
       render :new
@@ -42,7 +41,6 @@ class OrdersController < ApplicationController
     @conflicting_orders = @order.buffet.orders.where.not(id: @order.id).where(event_date: @order.event_date)
   end
 
-
   def update
     @order = Order.find(params[:id])
     previous_status = @order.status
@@ -50,10 +48,10 @@ class OrdersController < ApplicationController
       if @order.status == 'confirmed' && previous_status != 'confirmed'
         @order.calculate_price
         unless @order.save
-          flash[:alert] = 'Failed to update the price for the order.'
+          flash[:alert] = I18n.t('controllers.orders.update_price_failed')
         end
       end
-      redirect_to @order, notice: 'Order was successfully updated.'
+      redirect_to @order, notice: I18n.t('controllers.orders.updated')
     else
       render :show, alert: 'Failed to update the order.'
     end
@@ -61,40 +59,39 @@ class OrdersController < ApplicationController
 
   def edit_price
     @order = Order.find(params[:id])
-    redirect_to(root_path, alert: 'Not authorized') unless @order.buffet == current_user.buffet
+    redirect_to(root_path, alert: I18n.t('controllers.orders.unauthorized')) unless @order.buffet == current_user.buffet
   end
 
   def update_price
     if @order.buffet == current_user.buffet
       if @order.update(order_price_params)
         @order.calculate_price
-        redirect_to @order, notice: 'Price successfully updated.'
+        redirect_to @order, notice: I18n.t('controllers.orders.updated')
       else
-        render :edit_price, alert: 'Failed to update the price.'
+        render :edit_price, alert: I18n.t('controllers.orders.update_price_failed')
       end
     else
-      redirect_to root_path, alert: 'Not authorized to update price for this order.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.unauthorized')
     end
   end
 
   def confirm_by_client
     if @order.nil?
-      redirect_to root_path, alert: 'Order not found.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.order_not_found')
       return
     end
 
     if @order.user != current_user || @order.confirmed_by_client
-      redirect_to orders_path, alert: 'Not authorized.'
+      redirect_to orders_path, alert: I18n.t('controllers.orders.unauthorized')
       return
     end
 
     if @order.confirm_by_client!
-      redirect_to orders_path, notice: 'Order successfully confirmed!'
+      redirect_to orders_path, notice: I18n.t('controllers.orders.confirmed')
     else
-      redirect_to orders_path, alert: 'Failed to confirm the order.'
+      redirect_to orders_path, alert: I18n.t('controllers.orders.confirmation_failed')
     end
   end
-
 
   private
 
@@ -105,29 +102,25 @@ class OrdersController < ApplicationController
   def set_order
     @order = Order.find_by(id: params[:id])
     if @order.nil?
-      redirect_to root_path, alert: 'Order not found.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.order_not_found')
     end
   end
-
-
 
   def set_buffet
     return unless params[:buffet_id]
 
     @buffet = Buffet.find_by(id: params[:buffet_id])
     unless @buffet
-      redirect_to root_path, alert: 'Buffet not found.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.unauthorized')
       return
     end
 
     if current_user.buffet_owner? && @buffet.user != current_user
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to root_path, alert: I18n.t('controllers.orders.unauthorized')
     end
   end
-
 
   def order_params
     params.require(:order).permit(:event_date, :guest_count, :details, :alternative_address, :event_type_id, :status)
   end
-
 end

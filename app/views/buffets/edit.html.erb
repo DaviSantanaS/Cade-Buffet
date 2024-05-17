@@ -1,5 +1,5 @@
-<h1>Edit <%= current_user.buffet.name %></h1>
+<h1><%= t('views.buffet.edit.title', buffet_name: current_user.buffet.name) %></h1>
 
 <%= render 'form', buffet: @buffet %>
 
-<%= link_to "Back", root_path, class: "back-link" %>
+<%= link_to t('views.buffet.edit.back'), root_path, class: "back-link" %>

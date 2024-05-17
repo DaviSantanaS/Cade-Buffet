@@ -12,12 +12,10 @@ class EventType < ApplicationRecord
   validates :days_of_week, presence: true
   before_save :convert_days_of_week
 
-
   before_validation :assign_buffet
 
-
   def available_on?(event_date, guest_count)
-    return false if  guest_count > max_capacity
+    return false if guest_count > max_capacity
 
     existing_order = orders.where(event_date: event_date).exists?
     !existing_order
@@ -44,6 +42,4 @@ class EventType < ApplicationRecord
       self.days_of_week = self.days_of_week.join(',')
     end
   end
-
-
 end

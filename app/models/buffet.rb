@@ -17,7 +17,7 @@ class Buffet < ApplicationRecord
   def valid_cnpj
     return if cnpj.blank?
 
-    errors.add(:cnpj, 'CNPJ must be valid') unless CNPJ.valid?(cnpj)
+    errors.add(:cnpj, I18n.t('activerecord.errors.messages.cnpj')) unless CNPJ.valid?(cnpj)
   end
 
   def valid_phone_format
@@ -25,8 +25,7 @@ class Buffet < ApplicationRecord
 
     regex = /\A(\(\d{2}\)\s)?\d{9}\z|\A\d{11}\z|\A\d{2}-\d{5}-\d{4}\z/
     unless phone.match?(regex)
-      errors.add(:phone, 'Phone number must be in the format (XX) XXXXXXXXX, XXXXXXXXXXX, or XX-XXXX-XXXX')
+      errors.add(:phone, I18n.t('activerecord.errors.messages.phone'))
     end
   end
-
 end

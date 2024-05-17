@@ -22,11 +22,7 @@ class EventPrice < ApplicationRecord
     new_days = JSON.parse(days_of_week)
 
     unless (existing_days & new_days).empty?
-      errors.add(:days_of_week, "has overlapping days with other prices")
+      errors.add(:days_of_week, I18n.t('activerecord.errors.messages.unique_days_of_week_for_event_type'))
     end
   end
-
-
-
-
 end

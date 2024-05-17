@@ -74,7 +74,7 @@ RSpec.describe "Buffets API", type: :request do
     end
 
     it 'returns buffet details successfully' do
-      get api_v1_buffet_path(@buffet.id)
+      get api_v1_buffet_path(@buffet.id,  locale: :en)
 
       json_response = JSON.parse(response.body)
 
@@ -107,7 +107,7 @@ RSpec.describe "Buffets API", type: :request do
     end
 
     it 'returns an error for a non-existent buffet' do
-      get api_v1_buffet_path(-1)
+      get api_v1_buffet_path(-1, locale: :en)
 
       expect(response).to have_http_status(404)
       expect(response.content_type).to include('application/json')

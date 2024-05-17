@@ -1,10 +1,9 @@
 require 'rails_helper'
 
-describe 'User is redirectioned ' do
+describe 'User is redirectioned' do
   context 'signup' do
     it 'to new buffet page after signup' do
-
-      visit root_path
+      visit root_path(locale: :en)
       click_on 'Login'
       click_on 'Sign up'
       fill_in 'Name', with: 'Buffet Owner'
@@ -15,7 +14,7 @@ describe 'User is redirectioned ' do
       click_on 'Sign up'
 
       expect(page).to have_content('New Buffet')
-      expect(current_path).to eq(new_buffet_path)
+      expect(current_path).to eq(new_buffet_path(locale: :en))
     end
   end
 
@@ -25,28 +24,26 @@ describe 'User is redirectioned ' do
         email: 'buffet_owner@example.com',
         password: 'strongpassword',
         name: 'Buffet Owner',
-        buffet_owner: true)
+        buffet_owner: true
+      )
 
       login_as @buffet_owner, scope: :user
-      visit root_path
-
+      visit root_path(locale: :en)
 
       expect(page).to have_content('New Buffet')
-      expect(current_path).to eq(new_buffet_path)
-
+      expect(current_path).to eq(new_buffet_path(locale: :en))
     end
-
   end
 
   context 'does not have signed in' do
     it 'to log in page' do
-      visit buffets_path
+      visit buffets_path(locale: :en)
 
       expect(page).to have_content('You need to sign in or sign up before continuing.')
-      expect(current_path).to eq(new_user_session_path)
-
+      expect(current_path).to eq(new_user_session_path(locale: :en))
     end
   end
+
   context 'already loged in as a regular_user' do
     it 'to root path when try to edit a buffet by url' do
       @buffet_owner = User.create!(
@@ -81,20 +78,20 @@ describe 'User is redirectioned ' do
       )
 
       login_as @regular_user, scope: :user
-      visit 'http://127.0.0.1:3000/buffets/1/edit'
+      visit edit_buffet_path(@buffet.id, locale: :en)
 
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(root_path(locale: :en))
       expect(page).to have_content('Only the buffet owner can perform this action')
     end
 
     it 'to root path when try to create a new price event by url' do
-      visit 'http://127.0.0.1:3000/event_types/1/event_prices/new'
+      visit new_event_type_event_price_path(1, locale: :en)
 
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(root_path(locale: :en))
       expect(page).to have_content('You are not authorized to perform this action.')
     end
-
   end
+
   context 'already loged in as a buffet_owner' do
     it 'to root path when try to edit a buffet from another buffet owner' do
       @buffet_owner = User.create!(
@@ -144,15 +141,10 @@ describe 'User is redirectioned ' do
       )
 
       login_as @buffet_owner, scope: :user
-      visit 'http://127.0.0.1:3000/buffets/2/edit'
+      visit edit_buffet_path(@buffet2.id, locale: :en)
 
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(root_path(locale: :en))
       expect(page).to have_content('Only the buffet owner can perform this action')
-
     end
-
   end
 end
-
-
-

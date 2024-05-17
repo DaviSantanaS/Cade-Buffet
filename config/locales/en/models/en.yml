@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    errors:
+      models:
+        buffet: "Buffet"
+      attributes:
+        buffet:
+          cnpj: "CNPJ"
+          phone: "Phone"
+      messages:
+        cnpj: "CNPJ must be valid"
+        phone: "Phone number must be in the format (XX) XXXXXXXXX, XXXXXXXXXXX, or XX-XXXX-XXXX"
+        unique_days_of_week_for_event_type: "has overlapping days with other prices"
+        guest_count_within_capacity: "exceeds the maximum capacity of %{max_capacity} guests"
+        event_date_cannot_be_in_the_past: "can't be in the past"

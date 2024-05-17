@@ -1,17 +1,17 @@
-<h1>Edit Price for Order</h1>
+<h1><%= t('views.order.edit_price.title') %></h1>
 
 <%= form_with(model: @order, url: update_price_order_path(@order), method: :patch) do |form| %>
-  <%= form.label :price_adjustment, 'Price adjustment (negative value to set a discount)' %>
+  <%= form.label :price_adjustment, t('views.order.edit_price.labels.price_adjustment') %>
   <%= form.number_field :price_adjustment, step: 0.01, class: "form-control" %>
 
-  <%= form.label :payment_method, 'Payment method' %>
+  <%= form.label :payment_method, t('views.order.edit_price.labels.payment_method') %>
   <%= form.text_field :payment_method, class: "form-control" %>
 
-  <%= form.label :price_adjustment_description, 'Adjustment price description' %>
+  <%= form.label :price_adjustment_description, t('views.order.edit_price.labels.price_adjustment_description') %>
   <%= form.text_area :price_adjustment_description, class: "form-control" %>
 
-  <%= form.label :price_validity, 'Price Validity Date' %>
+  <%= form.label :price_validity, t('views.order.edit_price.labels.price_validity') %>
   <%= form.date_field :price_validity, class: "form-control" %>
 
-  <%= form.submit "Update price", class: "btn btn-primary" %>
+  <%= form.submit t('views.order.edit_price.actions.update_price'), class: "btn btn-primary" %>
 <% end %>

@@ -1,55 +1,55 @@
-<h1>My Orders</h1>
+<h1><%= t('views.order.index.my_orders') %></h1>
 <% if current_user.buffet_owner? %>
-  <h2>Pending Orders</h2>
+  <h2><%= t('views.order.index.pending_orders') %></h2>
   <% if @pending_orders.present? %>
     <% @pending_orders.each do |order| %>
       <div class="pending-orders">
-        <h3>Order <%= link_to "##{order.code}", order_path(order) %></h3>
-        <p>Event Date: <%= order.event_date.strftime("%d/%m/%Y") %></p>
-        <p>Status: <%= order.status.capitalize %></p>
+        <h3><%= t('views.order.index.order_details.order') %> <%= link_to "##{order.code}", order_path(order) %></h3>
+        <p><%= t('views.order.index.order_details.event_date') %>: <%= order.event_date.strftime("%d/%m/%Y") %></p>
+        <p><%= t('views.order.index.order_details.status') %>: <%= order.status.capitalize %></p>
         <hr>
       </div>
     <% end %>
   <% else %>
-    <p>No pending order.</p>
+    <p><%= t('views.order.index.no_pending_orders') %></p>
   <% end %>
 
-  <h2>Orders</h2>
+  <h2><%= t('views.order.index.orders') %></h2>
   <% if @other_orders.present? %>
     <% @other_orders.each do |order| %>
       <div class="other-orders">
         <% if order.status != "cancelled" %>
-          <h3>Order <%= link_to "##{order.code}", order_path(order) %></h3>
+          <h3><%= t('views.order.index.order_details.order') %> <%= link_to "##{order.code}", order_path(order) %></h3>
         <% else %>
-          <h3>Order <%="##{order.code}"%></h3>
+          <h3><%= t('views.order.index.order_details.order') %> <%="##{order.code}"%></h3>
         <% end %>
-        <p>Event Date: <%= order.event_date.strftime("%d/%m/%Y") %></p>
-        <p>Status: <%= order.status.capitalize %></p>
+        <p><%= t('views.order.index.order_details.event_date') %>: <%= order.event_date.strftime("%d/%m/%Y") %></p>
+        <p><%= t('views.order.index.order_details.status') %>: <%= order.status.capitalize %></p>
         <hr>
       </div>
     <% end %>
   <% else %>
-    <p>No other order.</p>
+    <p><%= t('views.order.index.no_other_orders') %></p>
   <% end %>
 <% elsif current_user.regular_user? %>
   <% if @client_orders.present? %>
     <% @client_orders.each do |order| %>
       <div class="client-orders">
         <% if order.status != "cancelled" %>
-          <h3>Order <%= link_to "##{order.code}", order_path(order) %></h3>
+          <h3><%= t('views.order.index.order_details.order') %> <%= link_to "##{order.code}", order_path(order) %></h3>
         <% else %>
-          <h3>Order <%="##{order.code}"%></h3>
+          <h3><%= t('views.order.index.order_details.order') %> <%="##{order.code}"%></h3>
         <% end %>
-        <p>Event Date: <%= order.event_date.strftime("%d/%m/%Y") %></p>
-        <p>Status: <%= order.status.capitalize %></p>
+        <p><%= t('views.order.index.order_details.event_date') %>: <%= order.event_date.strftime("%d/%m/%Y") %></p>
+        <p><%= t('views.order.index.order_details.status') %>: <%= order.status.capitalize %></p>
         <hr>
       </div>
     <% end %>
   <% else %>
-    <p>You don't have any order.</p>
+    <p><%= t('views.order.index.no_orders') %></p>
   <% end %>
 <% else %>
-  <p>Access denied.</p>
+  <p><%= t('views.order.index.access_denied') %></p>
 <% end %>
 
-<%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+<%= link_to t('views.order.index.back'), root_path, class: 'btn btn-secondary' %>

@@ -1,54 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>CadeBuffet</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<html lang="<%= I18n.locale %>">
+<head>
+  <title><%= t('layouts.application.title') %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "theme_switcher" %>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-  </head>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "theme_switcher" %>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</head>
 
-  <body>
-  <header>
-    <nav>
-      <ul>
-        <li><%= link_to "Home", root_path, class: 'header-btn' %></li>
-        <li><%= render 'buffets/search_form' %></li>
-        <% if user_signed_in? %>
-          <% if current_user.buffet_owner? %>
-            <% buffet_id = current_user.buffet.try(:id) %>
-            <% if buffet_id %>
-              <li><%= link_to 'Orders', buffet_orders_path(buffet_id), class: 'header-btn' %></li>
-            <% else %>
-              <li><%= link_to 'Orders', orders_path, class: 'header-btn' %></li>
-            <% end %>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><%= link_to t('layouts.application.home'), root_path, class: 'header-btn' %></li>
+      <li><%= render 'buffets/search_form' %></li>
+      <% if user_signed_in? %>
+        <% if current_user.buffet_owner? %>
+          <% buffet_id = current_user.buffet.try(:id) %>
+          <% if buffet_id %>
+            <li><%= link_to t('layouts.application.orders'), buffet_orders_path(buffet_id), class: 'header-btn' %></li>
           <% else %>
-            <li><%= link_to 'My Orders', orders_path, class: 'header-btn' %></li>
+            <li><%= link_to t('layouts.application.orders'), orders_path, class: 'header-btn' %></li>
           <% end %>
-        <li class="user-greeting">Hello, <% if current_user.buffet_owner? %>Buffet owner<% else %>User<% end %> <%= current_user.name %></li>
-          <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: 'header-btn btn-logout' %></li>
         <% else %>
-          <li id="login"><%= link_to "Login", new_user_session_path, class: 'header-btn' %></li>
+          <li><%= link_to t('layouts.application.my_orders'), orders_path, class: 'header-btn' %></li>
         <% end %>
-        <li><button id="theme-button" class="header-btn" onclick="toggleTheme()">&#9728;</button></li> <!-- Botão do tema com ícone do sol inicialmente -->
-      </ul>
+        <li class="user-greeting"><%= t('layouts.application.hello') %>, <% if current_user.buffet_owner? %><%= t('layouts.application.buffet_owner') %><% else %><%= t('layouts.application.user') %><% end %> <%= current_user.name %></li>
+        <li><%= button_to t('layouts.application.logout'), destroy_user_session_path, method: :delete, class: 'header-btn btn-logout' %></li>
+      <% else %>
+        <li id="login"><%= link_to t('layouts.application.login'), new_user_session_path, class: 'header-btn' %></li>
+      <% end %>
+      <li><button id="theme-button" class="header-btn" onclick="toggleTheme()">&#9728;</button></li> <!-- Botão do tema com ícone do sol inicialmente -->
+    </ul>
+  </nav>
+</header>
 
-    </nav>
-  </header>
+<main class="main-content">
+  <div>
+    <%= alert %>
+    <%= notice %>
+  </div>
 
+  <%= yield %>
 
-  <main class="main-content">
-      <div>
-        <%= alert%>
-        <%= notice%>
-      </div>
-
-      <%= yield %>
-  </main>
-  </body>
+  <li>
+    <%= link_to "English", locale: :en, class: "header-btn" %>
+    <%= link_to "Português", locale: :'pt-BR', class: "header-btn" %>
+  </li>
+</main>
+</body>
 </html>

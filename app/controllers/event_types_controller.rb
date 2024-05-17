@@ -2,7 +2,6 @@ class EventTypesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event_type, only: [:show, :add_photo]
 
-
   def index
     @buffet = Buffet.find(params[:buffet_id])
     @event_types = @buffet.event_types
@@ -24,7 +23,7 @@ class EventTypesController < ApplicationController
     @event_type = @buffet.event_types.build(event_type_params)
 
     if @event_type.save
-      redirect_to buffet_path(@buffet), notice: "Event type created successfully."
+      redirect_to buffet_path(@buffet), notice: I18n.t('controllers.event_types.created')
     else
       render :new
     end
@@ -41,15 +40,14 @@ class EventTypesController < ApplicationController
     if params.dig(:event_type, :photo)
       photo = @event_type.photos.new(image: params.dig(:event_type, :photo), author: current_user.name, published_at: Time.now)
       if photo.save
-        redirect_to @event_type, notice: 'Photo added successfully.'
+        redirect_to @event_type, notice: I18n.t('controllers.event_types.photo_added')
       else
-        redirect_to @event_type, alert: 'Failed to add photo. ' + photo.errors.full_messages.to_sentence
+        redirect_to @event_type, alert: I18n.t('controllers.event_types.photo_add_failed') + ' ' + photo.errors.full_messages.to_sentence
       end
     else
-      redirect_to @event_type, alert: 'No photo was provided.'
+      redirect_to @event_type, alert: I18n.t('controllers.event_types.photo_not_provided')
     end
   end
-
 
   private
 
@@ -67,5 +65,4 @@ class EventTypesController < ApplicationController
   def set_event_type
     @event_type = EventType.find(params[:id])
   end
-
 end

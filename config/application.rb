@@ -38,6 +38,12 @@ module CadeBuffet
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configuração do I18n
+    config.i18n.available_locales = [:en, :'pt-BR']
+    config.i18n.default_locale = :en
+
+    # Configuração do CORS
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

@@ -1,0 +1,28 @@
+en:
+  controllers:
+    application:
+      buffet_registration_incomplete: "You need to complete your buffet registration before continuing."
+    buffets:
+      created: "Buffet created successfully."
+      updated: "Buffet updated successfully."
+      creation_error: "Error creating buffet."
+      update_error: "Error updating buffet."
+      unauthorized_action: "Only the buffet owner can perform this action."
+    event_prices:
+      created: "Event price was successfully created."
+      unauthorized_action: "You are not authorized to perform this action."
+    event_types:
+      created: "Event type created successfully."
+      photo_added: "Photo added successfully."
+      photo_add_failed: "Failed to add photo."
+      photo_not_provided: "No photo was provided."
+    orders:
+      created: "Order was successfully created."
+      updated: "Order was successfully updated."
+      update_price_failed: "Failed to update the price for the order."
+      unauthorized: "Access denied."
+      confirmed: "Order successfully confirmed!"
+      confirmation_failed: "Failed to confirm the order."
+      order_not_found: "Order not found."
+    home:
+      index: "List of Buffets"

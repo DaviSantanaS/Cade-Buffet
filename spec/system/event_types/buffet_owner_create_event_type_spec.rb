@@ -35,24 +35,24 @@ describe 'buffet owner create event type' do
     click_on 'New event type'
     fill_in 'Name', with: 'Event Type Name'
     fill_in 'Description', with: 'Event Type Description'
-    fill_in 'Min capacity', with: '10'
-    fill_in 'Max capacity', with: '100'
-    fill_in 'Duration minutes', with: '120'
-    fill_in 'Menu text', with: 'Menu extense text'
-    check 'Has alcoholic beverages'
-    check 'Has decorations'
-    check 'Has parking service'
+    fill_in 'Min Capacity', with: '10'
+    fill_in 'Max Capacity', with: '100'
+    fill_in 'Duration (minutes)', with: '120'
+    fill_in 'Menu Text', with: 'Menu extense text'
+    check 'Alcoholic Beverages'
+    check 'Decorations'
+    check 'Parking Service'
     check 'Monday'
     check 'Sunday'
 
 
 
-    select "Client's Address", from: 'Venue options'
+    select "Client's Address", from: 'Venue Options'
 
 
     click_on 'Create Event type'
 
-    expect(current_path).to eq(buffet_path(@buffet.id))
+    expect(current_path).to eq(buffet_path(@buffet.id, locale: :en))
     expect(page).to have_content('Buffet Details')
     expect(page).to have_content('Event Type Name')
     expect(page).to have_content('Event Type Description')

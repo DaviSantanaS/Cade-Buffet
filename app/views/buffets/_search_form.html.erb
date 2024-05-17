@@ -1,4 +1,5 @@
 <form action="<%= search_path %>" method="get" class="search-form">
-  <input type="text" name="query" placeholder="city, name or event">
-  <button type="submit">Search</button>
+  <input type="text" name="query" placeholder="<%= t('views.buffet.search.placeholder') %>">
+  <button type="submit"><%= t('views.buffet.search.button') %></button>
 </form>
+

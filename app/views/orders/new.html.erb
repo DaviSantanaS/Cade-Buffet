@@ -1,4 +1,4 @@
-<h1>New Order</h1>
+<h1><%= t('views.order.new.title') %></h1>
 <%= form_with(model: @order, url: buffet_orders_path(@buffet)) do |form| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
@@ -12,33 +12,32 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :event_type_id, "Event Type" %>
+    <%= form.label :event_type_id, t('views.order.new.labels.event_type') %>
     <%= form.select :event_type_id, @event_types.collect { |e| [e.name, e.id, {'data-days' => e.days_of_week}] },
                     {prompt: "Select Event Type"}, {class: "form-control", id: "order_event_type_id"} %>
-
   </div>
 
   <div class="form-group">
-    <%= form.date_field :event_date, class: "form-control", id: "order_event_date", placeholder: "Event Date" %>
+    <%= form.date_field :event_date, class: "form-control", id: "order_event_date", placeholder: t('views.order.new.labels.event_date') %>
   </div>
 
   <div class="form-group">
-    <%= form.number_field :guest_count, class: "form-control", placeholder: "Number of Guests" %>
+    <%= form.number_field :guest_count, class: "form-control", placeholder: t('views.order.new.labels.guest_count') %>
   </div>
 
   <div class="form-group">
-    <%= form.text_area :details, class: "form-control", placeholder: "Event Details" %>
+    <%= form.text_area :details, class: "form-control", placeholder: t('views.order.new.labels.details') %>
   </div>
 
   <div class="form-group">
-    <%= form.text_field :alternative_address, class: "form-control", placeholder: "Alternative Address" %>
+    <%= form.text_field :alternative_address, class: "form-control", placeholder: t('views.order.new.labels.alternative_address') %>
   </div>
 
   <div class="form-group">
-    <%= form.submit "Create Order", class: "btn btn-primary" %>
+    <%= form.submit t('views.order.new.actions.create_order'), class: "btn btn-primary" %>
   </div>
 <% end %>
 
-<%= link_to 'Back', :back %>
+<%= link_to t('views.order.new.actions.back'), :back, class: "btn btn-secondary" %>
 
 <%= javascript_include_tag "filter_event_date" %>

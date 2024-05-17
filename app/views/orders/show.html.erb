@@ -1,77 +1,75 @@
 <div class="order-details">
-  <h1>Order Details</h1>
+  <h1><%= t('views.order.show.title') %></h1>
 
   <div class="order-info">
-    <div class="info-label">Event Type:</div>
+    <div class="info-label"><%= t('views.order.show.info.event_type') %>:</div>
     <div class="info-value"><%= @order.event_type.name %></div>
   </div>
 
   <div class="order-info">
-    <div class="info-label">Status:</div>
+    <div class="info-label"><%= t('views.order.show.info.status') %>:</div>
     <div class="info-value"><%= @order.status %></div>
   </div>
 
   <div class="order-info">
-    <div class="info-label">Event Date:</div>
+    <div class="info-label"><%= t('views.order.show.info.event_date') %>:</div>
     <div class="info-value"><%= @order.event_date.strftime("%B %d, %Y") %></div>
   </div>
 
   <div class="order-info">
-    <div class="info-label">Guest Count:</div>
+    <div class="info-label"><%= t('views.order.show.info.guest_count') %>:</div>
     <div class="info-value"><%= @order.guest_count %></div>
   </div>
 
   <div class="order-info">
-    <div class="info-label">Details:</div>
+    <div class="info-label"><%= t('views.order.show.info.details') %>:</div>
     <div class="info-value"><%= @order.details %></div>
   </div>
 
   <div class="order-info">
-    <div class="info-label">Alternative Address:</div>
+    <div class="info-label"><%= t('views.order.show.info.alternative_address') %>:</div>
     <div class="info-value"><%= @order.alternative_address %></div>
   </div>
 
   <% if @order.confirmed? %>
     <div class="order-info">
-      <div class="info-label">Price:</div>
+      <div class="info-label"><%= t('views.order.show.info.price') %>:</div>
       <div class="info-value"><%= number_to_currency(@order.price) %></div>
     </div>
   <% end %>
 
   <% if current_user.buffet_owner? && @order.buffet == current_user.buffet && @order.confirmed? %>
-    <%= link_to 'Edit Price', edit_price_order_path(@order), class: 'btn btn-primary' %>
+    <%= link_to t('views.order.show.actions.edit_price'), edit_price_order_path(@order), class: 'btn btn-primary' %>
   <% end %>
 
-
   <% if @order.buffet == current_user.buffet && @order.status != 'cancelled' %>
-    <%= button_to 'Accept', order_path(@order, order: { status: 'confirmed' }), method: :patch, form: { class: 'd-inline' } %>
-    <%= button_to 'Cancel', order_path(@order, order: { status: 'cancelled' }), method: :patch, form: { class: 'd-inline' } %>
+    <%= button_to t('views.order.show.actions.accept'), order_path(@order, order: { status: 'confirmed' }), method: :patch, form: { class: 'd-inline' } %>
+    <%= button_to t('views.order.show.actions.cancel'), order_path(@order, order: { status: 'cancelled' }), method: :patch, form: { class: 'd-inline' } %>
   <% end %>
 
   <% if @order.status == 'confirmed' && !@order.confirmed_by_client && @order.price_validity && @order.price_validity >= Date.today %>
-    <%= button_to 'Confirm Order', confirm_by_client_order_path(@order), method: :patch, class: 'btn btn-primary' %>
+    <%= button_to t('views.order.show.actions.confirm_order'), confirm_by_client_order_path(@order), method: :patch, class: 'btn btn-primary' %>
   <% end %>
-
 
   <% if @order.pending? || @order.confirmed? %>
     <% if @conflicting_orders.present? && @conflicting_orders.any? %>
       <div class="alert alert-warning">
-        <strong>Attention: Date conflicts with other orders!</strong>
+        <strong><%= t('views.order.show.conflicts.attention') %></strong>
         <% @conflicting_orders.each do |conflict| %>
-          <p><%= link_to "Order ##{conflict.code}", order_path(conflict) %> on the same day.</p>
+          <p><%= link_to t('views.order.show.conflicts.conflict_order', order_code: conflict.code), order_path(conflict) %> </p>
         <% end %>
       </div>
     <% end %>
   <% end %>
 
-
   <% if current_user.buffet_owner? %>
     <% buffet_id = current_user.buffet.try(:id) %>
     <% if buffet_id %>
-      <%= link_to 'Back', buffet_orders_path(buffet_id), class: 'header-btn' %>
+      <%= link_to t('views.order.show.actions.back'), buffet_orders_path(buffet_id), class: 'btn btn-secondary' %>
     <% else %>
-      <%= link_to 'Back', orders_path, class: 'header-btn' %>
+      <%= link_to t('views.order.show.actions.back'), orders_path, class: 'btn btn-secondary' %>
     <% end %>
   <% else %>
+    <%= link_to t('views.order.show.actions.back'), :back, class: 'btn btn-secondary' %>
   <% end %>
 </div>

@@ -24,7 +24,7 @@ describe 'User sign in as buffets owner' do
     fill_in 'Password', with: @buffet_owner.password
     click_on 'Log in'
 
-    expect(page).to have_content("Hello, Buffet owner #{@buffet_owner.name}")
+    expect(page).to have_content("Hello, Buffet Owner #{@buffet_owner.name}")
   end
 
   it 'fails to sign in with invalid credentials' do
@@ -32,6 +32,6 @@ describe 'User sign in as buffets owner' do
     fill_in 'Password', with: 'wrong_password'
     click_on 'Log in'
 
-    expect(page).to have_content('Invalid Email or password')
+    expect(page).to have_content('Invalid Email or password.')
   end
 end

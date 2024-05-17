@@ -1,8 +1,9 @@
-<h1>New Event Type</h1>
+<h1><%= t('views.event_type.new.title') %></h1>
+
 <%= form_with(model: @event_type, url: buffet_event_types_path(@buffet)) do |form| %>
   <% if @event_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@event_type.errors.count, "error") %> prohibited this event type from being saved:</h2>
+      <h2><%= pluralize(@event_type.errors.count, t('views.event_type.new.error_explanation.title', count: @event_type.errors.count)) %> </h2>
       <ul>
         <% @event_type.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,77 +12,72 @@
     </div>
   <% end %>
 
-
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name, t('views.event_type.new.labels.name') %>
     <%= form.text_field :name, id: :event_type_name %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
+    <%= form.label :description, t('views.event_type.new.labels.description') %>
     <%= form.text_area :description, id: :event_type_description %>
   </div>
 
   <div class="field">
-    <%= form.label :min_capacity %>
+    <%= form.label :min_capacity, t('views.event_type.new.labels.min_capacity') %>
     <%= form.number_field :min_capacity, id: :event_type_min_capacity %>
   </div>
 
   <div class="field">
-    <%= form.label :max_capacity %>
+    <%= form.label :max_capacity, t('views.event_type.new.labels.max_capacity') %>
     <%= form.number_field :max_capacity, id: :event_type_max_capacity %>
   </div>
 
   <div class="field">
-    <%= form.label :duration_minutes %>
+    <%= form.label :duration_minutes, t('views.event_type.new.labels.duration_minutes') %>
     <%= form.number_field :duration_minutes, id: :event_type_duration_minutes %>
   </div>
 
   <div class="field">
-    <%= form.label :menu_text %>
+    <%= form.label :menu_text, t('views.event_type.new.labels.menu_text') %>
     <%= form.text_area :menu_text, id: :event_type_menu_text %>
   </div>
 
   <div class="field">
-    <%= form.label :has_alcoholic_beverages %>
+    <%= form.label :has_alcoholic_beverages, t('views.event_type.new.labels.has_alcoholic_beverages') %>
     <%= form.check_box :has_alcoholic_beverages, id: :event_type_has_alcoholic_beverages %>
   </div>
 
   <div class="field">
-    <%= form.label :has_decorations %>
+    <%= form.label :has_decorations, t('views.event_type.new.labels.has_decorations') %>
     <%= form.check_box :has_decorations, id: :event_type_has_decorations %>
   </div>
 
   <div class="field">
-    <%= form.label :has_parking_service %>
+    <%= form.label :has_parking_service, t('views.event_type.new.labels.has_parking_service') %>
     <%= form.check_box :has_parking_service, id: :event_type_has_parking_service %>
   </div>
 
   <div class="field">
-    <%= form.label :days_of_week, "Select Days of Week" %><br>
+    <%= form.label :days_of_week, t('views.event_type.new.labels.days_of_week') %><br>
     <% Date::DAYNAMES.each_with_index do |day, index| %>
       <%= check_box_tag "event_type[days_of_week][]", index, @event_type.days_of_week&.include?(index.to_s), id: day %>
       <%= label_tag day, day %><br>
     <% end %>
   </div>
 
-
-
-
-
   <div class="field">
-    <%= form.label :venue_options %>
+    <%= form.label :venue_options, t('views.event_type.new.labels.venue_options') %>
     <%= form.select :venue_options, options_for_select(["Exclusive at Buffet Address", "Client's Address"],
                                                        selected: @event_type.venue_options), id: :event_type_venue_options %>
   </div>
 
   <div class="field">
-    <%= form.label :photos, "Upload Photos" %>
+    <%= form.label :photos, t('views.event_type.new.labels.photos') %>
     <%= form.file_field :photos, multiple: true, direct_upload: true %>
   </div>
 
   <div class="actions">
-    <%= form.submit  %>
-    <%= link_to "Back", :back, class: "back-link" %>
+    <%= form.submit %>
+    <%= link_to t('views.event_type.new.back'), :back, class: "back-link" %>
   </div>
 <% end %>

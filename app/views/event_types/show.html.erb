@@ -1,31 +1,31 @@
-<h1>Event Type Details</h1>
+<h1><%= t('views.event_type.details.title') %></h1>
 
 <div class="event-type-details mb-4">
   <div class="mb-3">
-    <strong>Name:</strong> <%= @event_type.name %><br>
-    <strong>Description:</strong> <%= @event_type.description %><br>
-    <strong>Min Capacity:</strong> <%= @event_type.min_capacity %><br>
-    <strong>Max Capacity:</strong> <%= @event_type.max_capacity %><br>
-    <strong>Duration (minutes):</strong> <%= @event_type.duration_minutes %><br>
-    <strong>Menu Text:</strong> <%= @event_type.menu_text %><br>
-    <strong>Has Alcoholic Beverages:</strong> <%= @event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
-    <strong>Has Decorations:</strong> <%= @event_type.has_decorations? ? 'Yes' : 'No' %><br>
-    <strong>Has Parking Service:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
-    <strong>Venue Options:</strong> <%= @event_type.venue_options %><br>
+    <strong><%= t('views.event_type.details.name') %>:</strong> <%= @event_type.name %><br>
+    <strong><%= t('views.event_type.details.description') %>:</strong> <%= @event_type.description %><br>
+    <strong><%= t('views.event_type.details.min_capacity') %>:</strong> <%= @event_type.min_capacity %><br>
+    <strong><%= t('views.event_type.details.max_capacity') %>:</strong> <%= @event_type.max_capacity %><br>
+    <strong><%= t('views.event_type.details.duration_minutes') %>:</strong> <%= @event_type.duration_minutes %><br>
+    <strong><%= t('views.event_type.details.menu_text') %>:</strong> <%= @event_type.menu_text %><br>
+    <strong><%= t('views.event_type.details.has_alcoholic_beverages') %>:</strong> <%= @event_type.has_alcoholic_beverages? ? 'Yes' : 'No' %><br>
+    <strong><%= t('views.event_type.details.has_decorations') %>:</strong> <%= @event_type.has_decorations? ? 'Yes' : 'No' %><br>
+    <strong><%= t('views.event_type.details.has_parking_service') %>:</strong> <%= @event_type.has_parking_service? ? 'Yes' : 'No' %><br>
+    <strong><%= t('views.event_type.details.venue_options') %>:</strong> <%= @event_type.venue_options %><br>
     <% if @event_type.days_of_week.present? %>
       <% day_indices = JSON.parse(@event_type.days_of_week) %>
       <% day_names = day_indices.map { |index| Date::DAYNAMES[index.to_i] } %>
-      <strong>Valid Days:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
+      <strong><%= t('views.event_type.details.valid_days') %>:</strong> <%= day_names.to_sentence(last_word_connector: ', and ') %><br>
     <% end %>
   </div>
 
   <% if current_user.buffet_owner? && current_user.actual_buffet_owner?(@event_type.buffet) %>
     <div class="actions mb-3">
-      <%= link_to "Add Event Price", new_event_type_event_price_path(@event_type), class: "btn btn-primary mr-2" %>
+      <%= link_to t('views.event_type.details.add_event_price'), new_event_type_event_price_path(@event_type), class: "btn btn-primary mr-2" %>
       <%= form_with(model: @event_type, url: add_photo_event_type_path(@event_type), local: true, html: { multipart: true }, method: :patch) do |form| %>
-        <%= form.label :photo, "Upload Photo", class: "d-block" %>
+        <%= form.label :photo, t('views.event_type.details.upload_photo'), class: "d-block" %>
         <%= form.file_field :photo, required: true, class: "mb-2" %>
-        <%= form.submit "Add Photo", class: "btn btn-success" %>
+        <%= form.submit t('views.event_type.details.add_photo'), class: "btn btn-success" %>
       <% end %>
     </div>
   <% end %>
@@ -52,13 +52,13 @@
 
   <% if @event_type.event_prices.any? %>
     <div class="event-prices mb-3">
-      <h2>Event Prices</h2>
+      <h2><%= t('views.event_type.details.event_prices.title') %></h2>
       <table class="table">
         <thead>
         <tr>
-          <th>Base Price</th>
-          <th>Additional Price per Person</th>
-          <th>Extra Hour Price</th>
+          <th><%= t('views.event_type.details.event_prices.base_price') %></th>
+          <th><%= t('views.event_type.details.event_prices.additional_price_per_person') %></th>
+          <th><%= t('views.event_type.details.event_prices.extra_hour_price') %></th>
         </tr>
         </thead>
         <tbody>
@@ -73,8 +73,8 @@
       </table>
     </div>
   <% else %>
-    <p>No event prices available for this event type.</p>
+    <p><%= t('views.event_type.details.no_event_prices') %></p>
   <% end %>
 </div>
 
-<%= link_to "Back to Buffet", buffet_path(@event_type.buffet), class: "btn btn-secondary" %>
+<%= link_to t('views.event_type.details.back_to_buffet'), buffet_path(@event_type.buffet), class: "btn btn-secondary" %>

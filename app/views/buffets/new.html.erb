@@ -1,5 +1,5 @@
-<h1>Create New Buffet</h1>
+<h1><%= t('views.buffet.new.title') %></h1>
 
 <%= render 'form', buffet: @buffet %>
 
-<%= link_to "Back", root_path, class: "back-link" %>
+<%= link_to t('views.buffet.new.back'), root_path, class: "back-link" %>

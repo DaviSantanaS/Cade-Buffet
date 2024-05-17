@@ -54,15 +54,16 @@ RSpec.describe 'User makes an order', type: :feature do
     click_on 'Make Order'
 
     select 'Wedding', from: 'Event Type'
-    fill_in 'Event Date', with: '2024-05-15'
+    fill_in 'Event Date', with: Date.today + 7 - Date.today.wday + 1
     fill_in 'Number of Guests', with: 100
     fill_in 'Event Details', with: 'Wedding details'
 
     click_on 'Create Order'
 
+    date = Date.today + 7 - Date.today.wday + 1
     expect(page).to have_content('Order Details')
     expect(page).to have_content('Wedding')
-    expect(page).to have_content('May 15, 2024')
+    expect(page).to have_content(date.strftime("%B %d, %Y"))
     expect(page).to have_content('100')
     expect(page).to have_content('Wedding details')
     expect(page).to have_content('pending')
@@ -75,11 +76,12 @@ RSpec.describe 'User makes an order', type: :feature do
     click_on 'Buffet Name'
     click_on 'Make Order'
     select 'Wedding', from: 'Event Type'
-    fill_in 'Event Date', with: '2024-05-15'
+    fill_in 'Event Date', with: date = Date.today + 7 - Date.today.wday + 1
     fill_in 'Number of Guests', with: 100
     fill_in 'Event Details', with: 'Wedding details'
     click_on 'Create Order'
     click_on 'Orders'
+
 
     expect(page).to have_content('Order #ABC12345')
   end

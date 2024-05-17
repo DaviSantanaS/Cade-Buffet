@@ -26,14 +26,14 @@ describe 'buffet owner edit buffet' do
 
 
     login_as @buffet_owner, scope: :user
-    visit root_path
+    visit root_path(locale: :en)
   end
 
   it 'sucessfully' do
     click_on 'Buffet Name'
     click_on 'Edit Buffet'
     fill_in 'Name', with: 'Buffet Name Edited'
-    click_on 'Save Buffet'
+    click_on 'Create Buffet'
 
     expect(page).to have_content('Buffet Details')
     expect(page).to have_content('Buffet Name Edited')
@@ -47,7 +47,7 @@ describe 'buffet owner edit buffet' do
 
 
 
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(root_path(locale: :en))
     expect(page).to have_content('Buffet Name')
     expect(page).to_not have_content('Buffet Name Edited')
   end

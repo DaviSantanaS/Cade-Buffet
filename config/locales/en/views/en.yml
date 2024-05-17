@@ -1,0 +1,211 @@
+en:
+  helpers:
+    submit:
+      buffet:
+        create: "Create Buffet"
+        update: "Update Buffet"
+  activerecord:
+    models:
+      buffet: "Buffet"
+    attributes:
+      buffet:
+        name: "Name"
+        company_name: "Company Name"
+        cnpj: "CNPJ"
+        phone: "Phone"
+        contact_email: "Contact Email"
+        address: "Address"
+        district: "District"
+        state: "State"
+        city: "City"
+        zip_code: "ZIP Code"
+        description: "Description"
+        payment_methods: "Payment Methods"
+  views:
+    buffet:
+      form:
+        error_explanation:
+          title: "%{count} errors prohibited this buffet from being saved:"
+        labels:
+          name: "Name"
+          company_name: "Company Name"
+          cnpj: "CNPJ"
+          phone: "Phone"
+          contact_email: "Contact Email"
+          address: "Address"
+          district: "District"
+          state: "State"
+          city: "City"
+          zip_code: "ZIP Code"
+          description: "Description"
+          payment_methods: "Payment Methods"
+        actions:
+          save: "Save Buffet"
+      search:
+        placeholder: "city, name or event"
+        button: "Search"
+      index:
+        title: "Search Buffets"
+      edit:
+        title: "Edit %{buffet_name}"
+        back: "Back"
+      new:
+        title: "Create New Buffet"
+        back: "Back"
+      show:
+        details:
+          title: "Buffet Details"
+          business_name: "Business Name"
+          company_name: "Company Name"
+          cnpj: "CNPJ"
+          phone: "Phone"
+          contact_email: "Contact Email"
+          address: "Address"
+          description: "Description"
+          payment_methods: "Payment Methods"
+          lowest_base_price: "Lowest Base Price"
+          no_event_types: "No event types offered yet."
+          event_types_offered: "Event Types Offered"
+          make_order: "Make Order"
+          edit_buffet: "Edit Buffet"
+          new_event_type: "New event type"
+          valid_days: "Valid Days"
+          base_price: "Base Price"
+          additional_price_per_person: "Additional Price per Person"
+          extra_hour_price: "Extra Hour Price"
+          valid_days_sentence_connector: ", and "
+        back: "Back"
+    event_price:
+      index:
+        title: "Event Prices"
+        new_price: "New Event Price"
+        back_to_event_type: "Back to Event Type"
+        base_price: "Base Price"
+        additional_price_per_person: "Additional Price per Person"
+        extra_hour_price: "Extra Hour Price"
+      form:
+        title: "New Event Price"
+        error_explanation:
+          title: "%{count} errors prohibited this event price from being saved:"
+        labels:
+          base_price: "Base Price"
+          additional_price_per_person: "Additional Price per Person"
+          extra_hour_price: "Extra Hour Price"
+        days_of_week:
+          title: "Days of the week"
+          no_days_available: "No specific days available for this event type."
+        actions:
+          create_price: "Create Price"
+          back: "Back"
+    event_type:
+      new:
+        title: "New Event Type"
+        labels:
+          name: "Name"
+          description: "Description"
+          min_capacity: "Min Capacity"
+          max_capacity: "Max Capacity"
+          duration_minutes: "Duration (minutes)"
+          menu_text: "Menu Text"
+          has_alcoholic_beverages: "Alcoholic Beverages"
+          has_decorations: "Decorations"
+          has_parking_service: "Parking Service"
+          days_of_week: "Select Days of Week"
+          venue_options: "Venue Options"
+          photos: "Upload Photos"
+      details:
+        title: "Event Type Details"
+        name: "Name"
+        description: "Description"
+        min_capacity: "Min Capacity"
+        max_capacity: "Max Capacity"
+        duration_minutes: "Duration (minutes)"
+        menu_text: "Menu Text"
+        has_alcoholic_beverages: "Alcoholic Beverages"
+        has_decorations: "Decorations"
+        has_parking_service: "Parking Service"
+        venue_options: "Venue Options"
+        valid_days: "Valid Days"
+        add_event_price: "Add Event Price"
+        upload_photo: "Upload Photo"
+        add_photo: "Add Photo"
+        no_event_prices: "No event prices available for this event type."
+        event_prices:
+          title: "Event Prices"
+          base_price: "Base Price"
+          additional_price_per_person: "Additional Price per Person"
+          extra_hour_price: "Extra Hour Price"
+        back_to_buffet: "Back to Buffet"
+    order:
+      edit_price:
+        title: "Edit Price for Order"
+        labels:
+          price_adjustment: "Price adjustment (negative value to set a discount)"
+          payment_method: "Payment method"
+          price_adjustment_description: "Adjustment price description"
+          price_validity: "Price Validity Date"
+        actions:
+          update_price: "Update price"
+      index:
+        my_orders: "My Orders"
+        pending_orders: "Pending Orders"
+        orders: "Orders"
+        no_pending_orders: "No pending order."
+        no_other_orders: "No other order."
+        no_orders: "You don't have any order."
+        access_denied: "Access denied."
+        order_details:
+          order: "Order"
+          event_date: "Event Date"
+          status: "Status"
+        back: "Back"
+      new:
+        title: "New Order"
+        labels:
+          event_type: "Event Type"
+          event_date: "Event Date"
+          guest_count: "Number of Guests"
+          details: "Event Details"
+          alternative_address: "Alternative Address"
+        actions:
+          create_order: "Create Order"
+      show:
+        title: "Order Details"
+        info:
+          event_type: "Event Type"
+          status: "Status"
+          event_date: "Event Date"
+          guest_count: "Guest Count"
+          details: "Details"
+          alternative_address: "Alternative Address"
+          price: "Price"
+        actions:
+          edit_price: "Edit Price"
+          accept: "Accept"
+          cancel: "Cancel"
+          confirm_order: "Confirm Order"
+        conflicts:
+          attention: "Attention: Date conflicts with other orders!"
+          conflict_order: "Order %{order_code} on the same day."
+        back: "Back"
+  devise:
+    sessions:
+      signed_in: "Signed in successfully."
+      signed_out: "Signed out successfully."
+      new:
+        sign_in: "Sign In"
+    registrations:
+      signed_up: "Sign up successfully."
+      updated: "Account updated successfully."
+      destroyed: "Account deleted successfully."
+  layouts:
+    application:
+      title: "CadeBuffet"
+      home: "Home"
+      orders: "Orders"
+      my_orders: "My Orders"
+      hello: "Hello"
+      buffet_owner: "Buffet Owner"
+      user: "User"
+      logout: "Logout"
+      login: "Login"

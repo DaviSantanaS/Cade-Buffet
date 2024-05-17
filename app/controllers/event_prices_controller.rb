@@ -16,12 +16,12 @@ class EventPricesController < ApplicationController
       @event_price.buffet_id = @event_type.buffet_id
 
       if @event_price.save
-        redirect_to event_type_event_prices_path(@event_type), notice: 'Event price was successfully created.'
+        redirect_to event_type_event_prices_path(@event_type), notice: I18n.t('controllers.event_prices.created')
       else
         render :new
       end
     else
-      redirect_to root_path, alert: "You are not authorized to perform this action."
+      redirect_to root_path, alert: I18n.t('controllers.event_prices.unauthorized_action')
     end
   end
 
@@ -40,6 +40,6 @@ class EventPricesController < ApplicationController
   end
 
   def authorize_buffet_owner
-    redirect_to root_path, alert: "You are not authorized to perform this action." unless current_user&.buffet_owner?
+    redirect_to root_path, alert: I18n.t('controllers.event_prices.unauthorized_action') unless current_user&.buffet_owner?
   end
 end

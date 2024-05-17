@@ -1,0 +1,28 @@
+pt-BR:
+  controllers:
+    application:
+      buffet_registration_incomplete: "Você precisa completar o registro do seu buffet antes de continuar."
+    buffets:
+      created: "Buffet criado com sucesso."
+      updated: "Buffet atualizado com sucesso."
+      creation_error: "Erro ao criar buffet."
+      update_error: "Erro ao atualizar buffet."
+      unauthorized_action: "Somente o proprietário do buffet pode realizar esta ação."
+    event_prices:
+      created: "Preço do evento criado com sucesso."
+      unauthorized_action: "Você não está autorizado a realizar esta ação."
+    event_types:
+      created: "Tipo de evento criado com sucesso."
+      photo_added: "Foto adicionada com sucesso."
+      photo_add_failed: "Falha ao adicionar foto."
+      photo_not_provided: "Nenhuma foto foi fornecida."
+    orders:
+      created: "Pedido criado com sucesso."
+      updated: "Pedido atualizado com sucesso."
+      update_price_failed: "Falha ao atualizar o preço do pedido."
+      unauthorized: "Acesso negado."
+      confirmed: "Pedido confirmado com sucesso!"
+      confirmation_failed: "Falha ao confirmar o pedido."
+      order_not_found: "Pedido não encontrado."
+    home:
+      index: "Lista de Buffets"

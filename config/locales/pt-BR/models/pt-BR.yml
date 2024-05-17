@@ -1,0 +1,55 @@
+pt-BR:
+  activerecord:
+    models:
+      buffet: "Buffet"
+      event_price: "Preço do Evento"
+      event_type: "Tipo de Evento"
+      order: "Pedido"
+      photo: "Foto"
+      user: "Usuário"
+    attributes:
+      buffet:
+        name: "Nome"
+        company_name: "Nome da Empresa"
+        cnpj: "CNPJ"
+        phone: "Telefone"
+        contact_email: "Email de Contato"
+        address: "Endereço"
+        district: "Bairro"
+        state: "Estado"
+        city: "Cidade"
+        zip_code: "CEP"
+        user_id: "Usuário"
+      event_price:
+        base_price: "Preço Base"
+        additional_price_per_person: "Preço Adicional por Pessoa"
+        extra_hour_price: "Preço Extra por Hora"
+        days_of_week: "Dias da Semana"
+      event_type:
+        name: "Nome"
+        description: "Descrição"
+        min_capacity: "Capacidade Mínima"
+        max_capacity: "Capacidade Máxima"
+        duration_minutes: "Duração (minutos)"
+        days_of_week: "Dias da Semana"
+      order:
+        event_date: "Data do Evento"
+        guest_count: "Número de Convidados"
+        details: "Detalhes"
+        code: "Código"
+        price_validity: "Validade do Preço"
+        status: "Status"
+      photo:
+        author: "Autor"
+        published_at: "Data de Publicação"
+      user:
+        name: "Nome"
+        cpf: "CPF"
+        buffet_owner: "Proprietário do Buffet"
+    errors:
+      messages:
+        cnpj: "deve ser válido"
+        phone: "número deve estar no formato (XX) XXXXXXXXX, XXXXXXXXXXX, ou XX-XXXX-XXXX"
+        unique_days_of_week_for_event_type: "tem dias sobrepostos com outros preços"
+        guest_count_within_capacity: "excede a capacidade máxima de %{max_capacity} convidados"
+        event_date_cannot_be_in_the_past: "não pode estar no passado"

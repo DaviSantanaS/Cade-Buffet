@@ -52,7 +52,7 @@ RSpec.describe 'Buffet owner manages orders', type: :feature do
 
   before do
     login_as(buffet_owner, scope: :user)
-    visit buffet_orders_path(buffet)
+    visit buffet_orders_path(buffet, locale: :en)
   end
 
   it 'displays all orders with pending orders separated' do

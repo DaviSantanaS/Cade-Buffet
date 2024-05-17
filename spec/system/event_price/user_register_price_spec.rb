@@ -51,9 +51,9 @@ describe 'User register price' do
     click_on 'Buffet Name'
     click_on 'Event Type Name'
     click_on 'Add Event Price'
-    fill_in 'Base price', with: '1000'
-    fill_in 'Additional price per person', with: 50
-    fill_in 'Extra hour price', with: 300
+    fill_in 'Base Price', with: '1000'
+    fill_in 'Additional Price per Person', with: 50
+    fill_in 'Extra Hour Price', with: 300
     check 'Sunday'
     click_on 'Create Price'
 
@@ -64,26 +64,5 @@ describe 'User register price' do
     expect(page).to have_content('$1,000.00')
 
   end
-
-  # it 'and see a registered price' do
-  #
-  #   visit root_path
-  #   click_on 'Buffet Name'
-  #   click_on 'Event Type Name'
-  #   click_on 'Add Event Price'
-  #
-  #   fill_in 'Base price', with: '1000'
-  #   fill_in 'Additional price per person', with: 50
-  #   fill_in 'Extra hour price', with: 300
-  #   click_on 'Wednesday'
-  #   click_on 'Create Price'
-  #   visit root_path
-  #   click_on 'Buffet Name'
-  #
-  #
-  #   expect(page).to have_content('Event Type Name')
-  #   expect(page).to have_content('Lowest Base Price: $1,000.00')
-  #
-  # end
 
 end

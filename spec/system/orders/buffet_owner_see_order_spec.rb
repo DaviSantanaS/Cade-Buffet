@@ -61,7 +61,7 @@ describe 'buffet owner see an order' do
     )
 
     @order = Order.create!(
-      event_date: '2024-05-15',
+      event_date: Date.today + 7 - Date.today.wday + 3,
       guest_count: 100,
       user_id: @regular_user.id,
       event_type_id: @event_type.id,

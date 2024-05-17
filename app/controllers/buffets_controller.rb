@@ -4,7 +4,6 @@ class BuffetsController < ApplicationController
   before_action :set_buffet, only: [:show, :edit, :update]
   before_action :verify_buffet_owner, only: [:edit, :update]
 
-
   def index
     @buffets = Buffet.all
   end
@@ -20,9 +19,9 @@ class BuffetsController < ApplicationController
   def create
     @buffet = Buffet.create(buffet_params.merge(user_id: current_user.id))
     if @buffet.save
-      redirect_to @buffet, notice: "Buffet created successfully."
+      redirect_to @buffet, notice: I18n.t('controllers.buffets.created')
     else
-      flash.now[:alert] = "Error creating buffet."
+      flash.now[:alert] = I18n.t('controllers.buffets.creation_error')
       render :new
     end
   end
@@ -31,9 +30,9 @@ class BuffetsController < ApplicationController
 
   def update
     if @buffet.update(buffet_params)
-      redirect_to @buffet, notice: "Buffet updated successfully."
+      redirect_to @buffet, notice: I18n.t('controllers.buffets.updated')
     else
-      flash.now[:alert] = "Error updating buffet."
+      flash.now[:alert] = I18n.t('controllers.buffets.update_error')
       render :edit
     end
   end
@@ -42,7 +41,7 @@ class BuffetsController < ApplicationController
     query = params[:query]
     @buffets = Buffet.joins(:event_types).
       where("buffets.name LIKE ? OR buffets.city LIKE ? OR event_types.name LIKE ?",
-      "%#{query}%", "%#{query}%", "%#{query}%").order(:name).distinct
+            "%#{query}%", "%#{query}%", "%#{query}%").order(:name).distinct
   end
 
   private
@@ -52,7 +51,7 @@ class BuffetsController < ApplicationController
   end
 
   def verify_buffet_owner
-    redirect_to root_path, alert: "Only the buffet owner can perform this action" unless current_user.actual_buffet_owner?(@buffet)
+    redirect_to root_path, alert: I18n.t('controllers.buffets.unauthorized_action') unless current_user.actual_buffet_owner?(@buffet)
   end
 
   def buffet_params

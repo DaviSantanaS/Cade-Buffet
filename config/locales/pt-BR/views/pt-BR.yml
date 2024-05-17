@@ -1,0 +1,211 @@
+pt-BR:
+  helpers:
+    submit:
+      buffet:
+        create: "Criar Buffet"
+        update: "Atualizar Buffet"
+  activerecord:
+    models:
+      buffet: "Buffet"
+    attributes:
+      buffet:
+        name: "Nome"
+        company_name: "Nome da Empresa"
+        cnpj: "CNPJ"
+        phone: "Telefone"
+        contact_email: "Email de Contato"
+        address: "Endereço"
+        district: "Bairro"
+        state: "Estado"
+        city: "Cidade"
+        zip_code: "CEP"
+        description: "Descrição"
+        payment_methods: "Métodos de Pagamento"
+  views:
+    buffet:
+      form:
+        error_explanation:
+          title: "%{count} erros proibiram este buffet de ser salvo:"
+        labels:
+          name: "Nome"
+          company_name: "Nome da Empresa"
+          cnpj: "CNPJ"
+          phone: "Telefone"
+          contact_email: "Email de Contato"
+          address: "Endereço"
+          district: "Bairro"
+          state: "Estado"
+          city: "Cidade"
+          zip_code: "CEP"
+          description: "Descrição"
+          payment_methods: "Métodos de Pagamento"
+        actions:
+          save: "Salvar Buffet"
+      search:
+        placeholder: "cidade, nome ou evento"
+        button: "Buscar"
+      index:
+        title: "Buscar Buffets"
+      edit:
+        title: "Editar %{buffet_name}"
+        back: "Voltar"
+      new:
+        title: "Criar Novo Buffet"
+        back: "Voltar"
+      show:
+        details:
+          title: "Detalhes do Buffet"
+          business_name: "Nome do Negócio"
+          company_name: "Nome da Empresa"
+          cnpj: "CNPJ"
+          phone: "Telefone"
+          contact_email: "Email de Contato"
+          address: "Endereço"
+          description: "Descrição"
+          payment_methods: "Métodos de Pagamento"
+          lowest_base_price: "Menor Preço Base"
+          no_event_types: "Nenhum tipo de evento oferecido ainda."
+          event_types_offered: "Tipos de Evento Oferecidos"
+          make_order: "Fazer Pedido"
+          edit_buffet: "Editar Buffet"
+          new_event_type: "Novo tipo de evento"
+          valid_days: "Dias Válidos"
+          base_price: "Preço Base"
+          additional_price_per_person: "Preço Adicional por Pessoa"
+          extra_hour_price: "Preço Extra por Hora"
+          valid_days_sentence_connector: ", e "
+        back: "Voltar"
+    event_price:
+      index:
+        title: "Preços do Evento"
+        new_price: "Novo Preço do Evento"
+        back_to_event_type: "Voltar ao Tipo de Evento"
+        base_price: "Preço Base"
+        additional_price_per_person: "Preço Adicional por Pessoa"
+        extra_hour_price: "Preço Extra por Hora"
+      form:
+        title: "Novo Preço do Evento"
+        error_explanation:
+          title: "%{count} erros proibiram este preço de evento de ser salvo:"
+        labels:
+          base_price: "Preço Base"
+          additional_price_per_person: "Preço Adicional por Pessoa"
+          extra_hour_price: "Preço Extra por Hora"
+        days_of_week:
+          title: "Dias da Semana"
+          no_days_available: "Nenhum dia específico disponível para este tipo de evento."
+        actions:
+          create_price: "Criar Preço"
+          back: "Voltar"
+    event_type:
+      new:
+        title: "Novo Tipo de Evento"
+        labels:
+          name: "Nome"
+          description: "Descrição"
+          min_capacity: "Capacidade Mínima"
+          max_capacity: "Capacidade Máxima"
+          duration_minutes: "Duração (minutos)"
+          menu_text: "Texto do Menu"
+          has_alcoholic_beverages: "Bebidas Alcoólicas"
+          has_decorations: "Decorações"
+          has_parking_service: "Serviço de Estacionamento"
+          days_of_week: "Selecione os Dias da Semana"
+          venue_options: "Opções de Local"
+          photos: "Upload de Fotos"
+      details:
+        title: "Detalhes do Tipo de Evento"
+        name: "Nome"
+        description: "Descrição"
+        min_capacity: "Capacidade Mínima"
+        max_capacity: "Capacidade Máxima"
+        duration_minutes: "Duração (minutos)"
+        menu_text: "Texto do Menu"
+        has_alcoholic_beverages: "Bebidas Alcoólicas"
+        has_decorations: "Decorações"
+        has_parking_service: "Serviço de Estacionamento"
+        venue_options: "Opções de Local"
+        valid_days: "Dias Válidos"
+        add_event_price: "Adicionar Preço do Evento"
+        upload_photo: "Upload de Foto"
+        add_photo: "Adicionar Foto"
+        no_event_prices: "Nenhum preço disponível para este tipo de evento."
+        event_prices:
+          title: "Preços do Evento"
+          base_price: "Preço Base"
+          additional_price_per_person: "Preço Adicional por Pessoa"
+          extra_hour_price: "Preço Extra por Hora"
+        back_to_buffet: "Voltar ao Buffet"
+    order:
+      edit_price:
+        title: "Editar Preço do Pedido"
+        labels:
+          price_adjustment: "Ajuste de preço (valor negativo para definir um desconto)"
+          payment_method: "Método de pagamento"
+          price_adjustment_description: "Descrição do ajuste de preço"
+          price_validity: "Data de Validade do Preço"
+        actions:
+          update_price: "Atualizar preço"
+      index:
+        my_orders: "Meus Pedidos"
+        pending_orders: "Pedidos Pendentes"
+        orders: "Pedidos"
+        no_pending_orders: "Nenhum pedido pendente."
+        no_other_orders: "Nenhum outro pedido."
+        no_orders: "Você não tem nenhum pedido."
+        access_denied: "Acesso negado."
+        order_details:
+          order: "Pedido"
+          event_date: "Data do Evento"
+          status: "Status"
+        back: "Voltar"
+      new:
+        title: "Novo Pedido"
+        labels:
+          event_type: "Tipo de Evento"
+          event_date: "Data do Evento"
+          guest_count: "Número de Convidados"
+          details: "Detalhes do Evento"
+          alternative_address: "Endereço Alternativo"
+        actions:
+          create_order: "Criar Pedido"
+      show:
+        title: "Detalhes do Pedido"
+        info:
+          event_type: "Tipo de Evento"
+          status: "Status"
+          event_date: "Data do Evento"
+          guest_count: "Número de Convidados"
+          details: "Detalhes"
+          alternative_address: "Endereço Alternativo"
+          price: "Preço"
+        actions:
+          edit_price: "Editar Preço"
+          accept: "Aceitar"
+          cancel: "Cancelar"
+          confirm_order: "Confirmar Pedido"
+        conflicts:
+          attention: "Atenção: Conflito de datas com outros pedidos!"
+          conflict_order: "Pedido %{order_code} no mesmo dia."
+        back: "Voltar"
+  devise:
+    sessions:
+      signed_in: "Login efetuado com sucesso."
+      signed_out: "Logout efetuado com sucesso."
+      new:
+        sign_in: "Entrar"
+    registrations:
+      signed_up: "Cadastro efetuado com sucesso."
+      updated: "Cadastro atualizado com sucesso."
+      destroyed: "Conta excluída com sucesso."
+  layouts:
+    application:
+      title: "CadeBuffet"
+      home: "Início"
+      orders: "Pedidos"
+      my_orders: "Meus Pedidos"
+      hello: "Olá"
+      buffet_owner: "Proprietário do Buffet"
+      user: "Usuário"
+      logout: "Sair"
+      login: "Entrar"
