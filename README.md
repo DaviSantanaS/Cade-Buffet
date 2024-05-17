@@ -25,7 +25,7 @@ rails server
 - **Banco de dados sqlite3**
 - **npm 10.7.0**
 - **node 22.2.0**
-- O bootstrap foi utilizado via **CDN**
+- O **bootstrap** foi utilizado via **CDN**
 
 ## Tecnologias Utilizadas
 
