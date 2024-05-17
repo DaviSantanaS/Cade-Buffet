@@ -23,6 +23,9 @@ rails server
 - **Ruby 3.3 ou superior**
 - **Rails 7.0 ou superior**
 - **Banco de dados sqlite3**
+- **npm 10.7.0**
+- **node 22.2.0**
+- O bootstrap foi utilizado via **CDN**
 
 ## Tecnologias Utilizadas
 
